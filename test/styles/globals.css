@@ -1,0 +1,26 @@
+html,
+.header {
+    background-color: yellow;
+    border: 5px solid blue;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: blue;
+    border: 5px solid yellow;
+}
+.footer {
+    background-color: red;
+    border: 5px solid green;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}

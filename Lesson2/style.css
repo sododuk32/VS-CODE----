@@ -1,0 +1,254 @@
+
+body{
+
+    border:3px solid red;
+    margin:0;
+  
+    
+}
+.nav{
+    position: fixed;
+    border:3px solid blue;
+    display:flex;
+    justify-content:space-between;
+    
+    padding-right: 30px;
+    width: 100%;
+    
+    
+    
+}
+
+.banner{
+
+    border:3px solid blue;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Animated_Wallpaper_Windows_10_-_Wallpaper_Engine.gif/640px-Animated_Wallpaper_Windows_10_-_Wallpaper_Engine.gif);
+    background-size: cover;
+    height: 600px;
+    padding-top: 100px;
+    padding-bottom: 30px;
+    
+    text-align: center;
+  
+    align-items: center;
+}
+
+
+.banner-title{
+    border:3px solid yellow;
+    font-size:xx-large;
+    text-align: center;
+    color:brown;
+    width:700px;
+    padding-top:15px;
+    margin:5% auto;
+    margin-bottom: 33px;
+  
+}
+
+.banner-introduce
+{
+    font-size:x-large;
+    border:3px solid yellow;
+    color:brown;
+    width:400px;  
+    /* 여기 height display 값을 건드려도 텍스트 위치는 중앙 고정인채로 contents 안의 윗부분을 없애고 싶은대 그게 안됨.*/
+    height: 150px;
+    margin:0% auto;
+    padding-bottom:20px;
+    text-align: center;
+
+  
+
+}
+
+/* .hyperlink
+{
+    border:10px solid yellow;
+    padding-top:15px;
+    padding-bottom:15px;
+    display: table;
+    width:100%;
+    vertical-align: middle;
+    } */
+
+
+
+.introduce3
+
+{
+    border:10px solid yellow;
+    display:inline-block;
+    background-color: red;
+    border-radius: 30px;
+    width: fit-content;
+    align-items:center;
+    /* margin-left: 1100px; */
+    margin:0 auto;
+    font-size:90%;
+    font-size:x-large;
+}
+
+.about-Me{
+
+    border:10px solid yellow;
+    margin:5% auto;
+    margin-top:30px;
+    margin-bottom:10px;
+    font-size:xx-large;
+    width:200px;
+    text-align: center;
+
+}
+
+.logo-title{
+
+    border:3px solid yellow;
+    display:flex;
+    align-items: center;
+    
+    margin-left: 400px;
+    font-size:xx-large;
+   
+
+}
+
+.menu{
+    border:3px solid yellow;
+    display: flex;
+     list-style:none; /* */
+     margin-right: 300px;
+     padding-left: 0;
+     padding-right:20px;
+     color:crimson;
+     align-items: center;
+     height: 90px;
+    font-size:x-large;
+
+}
+
+.menu li{
+    border:3px solid red;
+    padding-left: 0;
+    align-items: center;
+    margin-left: 20px;
+    height: 50px;
+}
+
+
+.banner-desc{
+    border:3px solid yellow;
+    text-align: center;
+    color:brown;
+
+}
+
+
+.main-contens{
+    border:3px solid blue;
+    justify-content: center;
+    list-style:none;
+    background-color:papayawhip;
+    
+}
+
+
+
+.profile
+{
+    border:3px solid yellow;
+    display:flex ;
+    justify-content: start;
+    width: 800px;
+    height: auto;
+    align-items:center;
+    margin: 0px auto;
+    flex-wrap: wrap;
+    padding-top: 80px;
+    background-image: url(http://media.tumblr.com/6e2798172f64b7f96483389329fab663/tumblr_inline_mi679mfkP61qz4rgp.gif);
+    
+
+}
+
+.profile li{
+    border:3px solid yellow;
+    list-style:none;
+ 
+  
+  
+}
+
+
+
+
+#name
+{
+    border:3px solid red;
+    display:flex ;
+    margin-left:50px;
+    margin-right:120px;
+    padding:10px;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+
+#birth
+{
+    border:3px solid red;
+    display:flex ;
+    margin-right:150px;
+    padding:10px;
+    width: 100px;
+    height: 80px;
+    text-align: center;
+}
+
+#adress
+{
+    border:3px solid red;
+    display:flex ;
+    padding:10px;
+    width: 120px;
+    height: 50px;
+    text-align: center;
+}
+
+#ph
+{
+    border:3px solid red;
+    display:flex ;
+    margin-right:60px;
+    margin-left:50px;
+    padding:10px;
+    width: 130px;
+    height: 60px;
+    text-align: center;
+}
+
+#email
+{
+    border:3px solid red;
+    display:flex ;
+    margin-left:30px;
+    margin-right:120px;
+    padding:10px;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+}
+
+#major
+{
+    border:3px solid red;
+    display:flex ;
+    margin: left 10px;
+    padding:10px;
+    width: 140px;
+    height: 70px;
+    text-align: center;
+    
+} 
+
+

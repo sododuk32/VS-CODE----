@@ -1,0 +1,49 @@
+body
+{
+display:flex;
+flex-direction: column;
+align-items: center;
+/* 가운데는 justify contents center지만 컬럼정렬이라 align슴 
+현재 플렉스(이쁘게 가로배치)-> 세로로만들기->세로 컨텐츠를 중앙정렬 순서로 만듬  */
+margin:0;
+
+
+}
+
+.game-title
+{
+    background-color: coral;
+    width:100%;
+    text-align: center;
+    color: white;
+}
+
+.word-display
+{
+
+    font-size:70px;
+    margin-top:15px;
+    margin-bottom:15px;
+
+}
+
+.word-input
+{
+font-size:20px;
+padding:10px;
+border:1px solid #ddd;
+
+}
+.game-info
+{
+display: flex;
+justify-content: space-between;
+width:200px;
+}
+
+.score, .time {
+
+    font-weight:bold;
+    font-size:30px;
+
+}

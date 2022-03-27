@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Game</title>
+    <link rel="stylesheet" href="typing.css" />
+  </head>
+  <body>
+    <div>몰루</div>
+
+    <script>
+      const params1 = "안녕";
+      function writing(params1) {
+        document.write(params1 + "난첫번쨰 줄이야.<br>");
+        document.write(params1 + "난두번쨰 줄이야.　　　");
+        document.write(params1 + "난세번쨰 줄인대?.<br>");
+        document.write(params1 + "내가 세번째 줄이야.");
+      }
+      writing(params1);
+    </script>
+
+    <br />
+    <br />
+    <br />
+    <button onclick="clickButton()">로또번호생성</button>
+    <p id="lottoryNum">로또숫자가 여기 표시됩니다.</p>
+  </body>
+</html>
+<!-- 발표하면서 dom개념 설명이 필요함. 클로저 스코프는 다음시간에 -->
+
+<script>
+  var longg1 = "longg1:변수 선언 및 초기화 잘못하면 전역변수취급";
+  console.log(longg1);
+  var longg1 = "전역변수임 위의 할당값이 이걸로 덮어씌워짐";
+  console.log(longg1);
+
+  const longg2 = "longg2:변환불가, 블록 범위, 읽기 상수 선언";
+ 
+  console.log(longg2);
+
+  //   longg2 = "30"; //const라서 에러가 날거임 alert또한 불가능
+  //   alert(longg2);
+
+  let longg3 = "longg3:변환가능 지역 변수 선언 및 초기화";
+  console.log(longg3);
+
+  //let longg3 = "asdf"; //let은 지역변수지만 여러번 선언이 불가능함.
+
+  const 인자및조건부 = 123;
+
+  function 함수원형(인자및조건부2) {
+    let 지역변수 = "지역변수";
+    return 인자및조건부2 + 지역변수;
+  }
+
+  const checkout = true;
+  function check1(checkout = true) {
+    let longg3 = "check함수용 변수longg3";
+    let result = `지역변수값: ${longg3} 그리고 전역변수값:${longg2}`; //리터럴방식으로 ''가 아닌 ``를 사용
+
+    return consloe.log(result);
+  }
+
+  function check2(checkout = true) {
+    let longg3 = "check함수용 변수longg3";
+    let result = "지역변수값" + longg3 + "전역변수값" + longg2; //일반 표현식
+    return consloe.log(result);
+  }
+
+  let 결과 = false;
+  let 결과2 = true;
+
+  if (결과) {
+    결과 = true;
+    /*jslint devel: true */
+    console.log(결과);
+  }
+
+  if (결과 === true) {
+    console.log(결과);
+  }
+
+  if (결과 === false && 결과2 === !false) {
+    console.log(결과);
+  }
+  // || 둘중하나만 true
+  // && 둘다 true
+
+  const condition = true;
+  const statement1 = 3;
+  const statement2 = 4;
+  if (condition) console.log(statement1);
+  else {
+    console.log(statement2);
+  }
+
+  function 이프문(state1, state2, condition) {
+    if (condition) return state1;
+    else {
+      return consloe.log(state2);
+    }
+  }
+
+  function clickButton() {
+    const lottoryNumTag = document.querySelector("#lottoryNum");
+    let numbers = [];
+
+    for (let i = 0; i <= 5; i++) {
+      // console.log(i);
+      let Number = Math.floor(Math.random() * 46);
+      numbers[i] = Number;
+    }
+    lottoryNumTag.innerText = numbers;
+
+    console.log(numbers);
+  }
+
+  let array1 = [];
+  array1[0] = "a";
+  array1[2] = "b";
+  console.log(array1);
+
+  let array2 = [
+    "02",
+    "123",
+    "224",
+    (keyvalue3 = "third"),
+    "4256",
+    "5278",
+    "62290",
+    "722-",
+    "822299",
+  ];
+  //둘다 선언문임.
+  console.log(array2);
+  console.log(array2.keyvalue3);
+
+  let lastone = array2[array2.length - 1];
+
+  for (let i = 0; i < array2.length; i++) {
+    console.log(array2[i]);
+  }
+  //반복문
+  console.log("---------------------------");
+
+  for (let array2Value of array2) {
+    console.log(array2Value);
+  }
+  //for of 반복문
+  console.log("---------------------------");
+  array2.forEach(function (array2, index) {
+    console.log(array2, index);
+  });
+  console.log("---------------------------");
+
+  array2.forEach((array2, index) => console.log(array2, index));
+  // foreach의 매개변수로  (array2, index) => console.log(array2, index) 이 함수가 들어가있음.
+
+  //   for문은 continue나 break로 반복을 제어할 수 있지만 forEach는 throw(예외)를 발생시키지 않으면 중간에 반복을 종료할 수 없습니다.
+  // 만약 조건을 만족할 때 까지만 반복시켜야 한다면 기존 for문이나 every같은 함수를 사용하셔야 합니다.
+  // 이상으로 forEach에 대한 글을 마치겠습니다.
+
+  console.log("---------------------------");
+
+  // (function parameters)=>(return stated value) arrow function
+  console.log("---------------------------");
+
+  console.log(array2.map((cixc) => cixc.length));
+  console.log(array2);
+
+  // cixc =>얘는 map이라는 배열 실행함수에 들어갈 적당한 지역변수
+  // cixc.length 지역변수cixc{array2값}배열 value를 length value로 바꾸고 새로운 void배열(console.log때문에)에 저장함.
+
+  //  console.log(array2.map((cixc) => cixc.length));
+  // 이 문장은 log를 띄우는대, array2의 배열을 인자값으로 받아서 map메서들 사용한다.
+  // map메서드는 배열을받아서-> (배열 내용문을실행문에 넣음) = 배열을받고 배열의 인자값들을 실행문을 거쳐서 다시 배열에 집어넣고 return한다.
+
+  console.log("---------------------------");
+
+  array2.pop(); //->스택에 넣은 배열을 마지막에 넣은 값부터 빼서 없앰
+  console.log(array2);
+
+  console.log("---------------------------");
+
+  array2.unshift("722-");
+  console.log(array2);
+  //배열 첫번째 값 삭제
+  console.log("---------------------------");
+
+  console.log(array2);
+  console.log("---------------------------");
+
+  console.log(array2.indexOf("722-"));
+
+  //요약. 배열에서 value를 찾고, 넘버링하고,넣고,빼는 기능이 기본적으로 많이 제공되어있다.
+
+  //다음주 scope closure 사용한 dom 응용 접근 그리고 다른 객체를 사용한 다른 객체의dom수정,
+  //비동기처리 개념과 활용코드 , 구체적인 개인프로젝트 발표
+  //
+</script>

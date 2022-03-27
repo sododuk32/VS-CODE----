@@ -1,0 +1,21 @@
+{
+    "env": { "browser": true, "es2021": true, "node": true },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        //For non-version specific features such as JSX:
+        "ecmaFeatures": { "jsx": true },
+        //If you are working with ES6 modules:
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "next",
+        "next/core-web-vitals",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        "react-hooks/rules-of-hooks": 0 // Checks rules of Hooks
+    }
+}

@@ -1,0 +1,131 @@
+<!-- 그냥 화면만 나오면 되는 개발은 문제가 있는대, css설계에 대한 충분한 이해가 없어서 나중에 업데이트시 큰일남. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="insta.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+    <div id="header">
+        <div id="logo">
+
+            <img id="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png">    
+          
+            <!-- 여기를 일일 이 div로 나누는게 나중에 수정 및 추가할 사항이 있을때 편하려고 -->
+        </div>
+
+        <div id="search"> 
+            
+            <input id="search-input" type="text" placeholder="검색">  
+        
+        </div>
+
+        <ul id="icons">    
+                <li> <a href="#"></a> <i class="fas fa-comments"></i></li>
+                <li> <a href="#"></a> <i class="far fa-heart"></i></li>
+                <li> <a href="#"></a><i class="far fa-compass"></i></li>
+                <li> <a href="#"></a><i class="fas fa-home"></i></li>
+
+
+        </div>
+
+
+    </div>
+
+    <div id="content">
+
+        <div id="post">
+
+            <div id="post-header">
+                <img id="post-headerimage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8DZb3pHuGX_pmdVAjud4P3NxLbbkgtDdpeA&usqp=CAU">
+                <span id="post-headerid">올린사람</span>
+            </div>
+
+            <div id="post-center">
+                
+                <img id="post-centerimage" src="data:image/jpeg;base64,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">
+            <!-- id말고 클래스만 사용하는경우도있다. id는 중복될수없고 클래스는 중복가능함 -->
+            </div>
+
+         
+            <!-- onlike 같이 이벤트 안쓰고 바로쓰는거 함 알아보자. -->
+
+                <div id="post-footer">
+
+                    <ul id="post-footer-icons">
+
+                        <li>
+                            <a href="#" onclick="like(1)"><i class="fas fa-heart"></i></a>
+                        </li>
+
+                    </ul>
+
+                    <p id="post-footerCount"> 
+                        
+                        <spam id="count1">0</spam>명이 좋아합니다.
+
+                    </p>
+                </div>
+
+                <div id="post-footer">
+
+                    <ul id="post-footer-icons">
+
+                        <li>
+                            <a href="#" onclick="like(2)"><i class="fas fa-heart"></i></a>
+                        </li>
+
+                    </ul>
+
+                    <p id="post-footerCount"> 
+                        
+                        <spam id="count2">0</spam>명이 좋아합니다.
+
+                    </p>
+                </div>
+
+                <div id="post-footer">
+
+                    <ul id="post-footer-icons">
+
+                        <li>
+                            <a href="#" onclick="like(3)"><i class="fas fa-heart"></i></a>
+                        </li>
+
+                    </ul>
+
+                    <p id="post-footerCount"> 
+                        
+                        <spam id="count3">0</spam>명이 좋아합니다.
+
+                    </p>
+                </div>
+        </div>
+
+    </div>
+
+
+    </div>
+</body>
+</html>
+
+
+<script>
+
+
+    function like(id)
+    {
+      let countElement = document.querySelector("#count"+id);
+      //오브젝트 안의 함수를 메소드  queryselecto가 메소드
+      let likeIcon = document.querySelector("like"+id)
+      countElement.innerText= parseInt(countElement.innerText)+1;
+      console.dir(countElement);
+    }
+
+
+</script>
