@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  let new_id = "...!@BaT#*..y.abcdefghijklm";
+
+  solution(new_id);
+
+  function solution(new_id) {
+    var answer = "";
+    let i;
+    if (new_id == "") {
+      return (new_id = "a");
+    }
+
+    const array1 = Array.from(new_id); //첫번째 배열, 원본배열로서 매핑으로 ...까지 넣어줌. set 객체 변환은 불가능
+
+    const map1 = array1.map(isNaN); // 숫자 문자 구분 가능한 두번째 배열
+
+    for (i = 0; i < map1.length; i++) {
+      if (map1[i]) {
+        array1[i] = array1[i].toLowerCase(); //소문자변형
+      }
+    }
+    var pattern1 = [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+      ",",
+      "-",
+      "_",
+      ".",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "0",
+    ]; //패턴배열
+
+    for (i = 0; i < array1.length; i++) {
+      let temp = pattern1.indexOf(array1[i]);
+      console.log(temp);
+      console.log("=");
+      console.log(array1[i]);
+      if (temp === -1) {
+        array1.splice(i, 1);
+      }
+    }
+    for (i = 0; i < array1.length; i++) {
+      if (array1[i] == "." && array1[i - 1] == ".") {
+        array1.splice(i, 1);
+        i = 0;
+      }
+    }
+    if ((array1[0] = ".")) {
+      array1.splice(0, 1);
+      console.log(array1);
+    }
+    if ((array1[array1.length - 1] = ".")) {
+      array1.splice(1, 1);
+    }
+
+    let temp2 = new_id;
+    if (temp2.empty() == true) {
+      temp2.append(1, "a");
+    }
+    // if (array1.length >= 16) {
+    //   for (i = array1.length; (i = 14); i--) {
+    //     if (i == 14 && array1[i] === ".") {
+    //       array1.splice(i, 1);
+    //     }
+    //   }
+    // }
+
+    // if (array1.length <= 2) {
+    //   for (i = array1.length - 1; (i = 3); i++) {
+    //     array1[i] = array1[array1.length - 1];
+    //   }
+    // }
+
+    answer = array1;
+    answer.join("");
+
+    return;
+  }
+</script>
+
+<!-- 
+console.log(array1) -->
+
+<!-- replace 메서드와 padend 와 같은 메서드를 몰라서 개노가다했다.  -->
