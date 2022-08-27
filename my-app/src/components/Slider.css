@@ -1,0 +1,32 @@
+.slider {
+    width: 100%;
+    height: 80vh;
+}
+.slide {
+    position: absolute;
+    opacity: 0.5;
+    width: 40vw;
+    height: 30vw;
+    transform: translateX(-50%);
+    transition: all 0.5s ease;
+    justify-content: center;
+}
+
+.slidecurrent {
+    position: absolute;
+    opacity: 1;
+
+    transform: translateX(135%);
+    transition: all 0.5s ease;
+    justify-content: center;
+}
+
+.images {
+    width: 500px;
+    height: 900px;
+}
+
+.current {
+    opacity: 0;
+    transform: translateX(0);
+}

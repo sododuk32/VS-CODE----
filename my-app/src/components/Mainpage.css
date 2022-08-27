@@ -1,0 +1,44 @@
+.main {
+    padding-top: 48px;
+}
+
+.selrection-content {
+    display: flex;
+    justify-content: center;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+.unicefImg {
+    width: 122px;
+    height: 32px;
+}
+.catchPh {
+    font-size: 14px;
+    text-decoration: none;
+    padding-top: 0.5vw;
+    padding-left: 1vw;
+}
+.wholeLink {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iPhoneShow1 {
+    text-decoration: none;
+}
+.LeanMoreLink {
+    text-decoration: none;
+}
+
+.iPhoneShow2 {
+    text-decoration: none;
+}
+.catchImg {
+    padding-top: 1.5vw;
+}
+.ShopNowLink {
+    text-decoration: none;
+    font-size: 20px;
+}

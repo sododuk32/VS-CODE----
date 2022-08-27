@@ -1,0 +1,12 @@
+.App {
+    font-family: 'samsung';
+}
+@font-face {
+    font-family: 'samsung';
+    src: url('../src/SamsungSharpSans-Bold.ttf') format('truetype');
+}
+
+.displayT {
+    font-size: large;
+    position: relative;
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="short icon" href="#" />
+
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // const str = "...!@BaT#*..y._abcdefghijklm";
+
+  let s = "abcdasdfa";
+
+  function solution(s) {
+    var answer = "";
+    let middle = Math.round(s.length / 2 - 1);
+    console.log(middle);
+    if (2 % s.length === 0) {
+      answer = s[middle] + s[middle - 1];
+    }
+    if (2 % s.length === !0) {
+      answer = s[middle];
+    }
+
+    console.log(answer);
+  }
+  solution(s);
+
+  // solution(str);
+  // function solution(new_id) {
+  //   const answer = new_id
+  //     .toLowerCase()
+  //     .replace(/[^\w-.]/g, "")
+  //     .replace(/\.+/g, ".")
+  //     .replace(/ ^ \. | \.$/g) //^.으로 시작 \. \.$점으로 끝
+  //     .replace(/^$/, "a")
+  //     .replace(/\.$/, "");
+  //   let temp = answer.length;
+
+  //   return console.log(
+  //     temp > 2 ? answer : answer + answer.charAt(temp - 1).repeat(3 - temp)
+  //   );
+  // }
+
+  // const report = [
+  //   "muzi frodo",
+  //   "apeach frodo",
+  //   "frodo neo",
+  //   "muzi neo",
+  //   "apeach muzi",
+  // ];
+  // const id_list = ["muzi", "frodo", "apeach", "neo"];
+  // const k = 2;
+
+  // function solution(id_list, report, k) {
+  //   let answer = [];
+  //   let searchText = id_list[0];
+  //   let reported = [];
+  //   let banned = [];
+  //   let newreport = []; //중복제거된것
+  //   let newarray = [];
+  //   let temp = [];
+  //   let mailed = [];
+
+  //   report.forEach((v) => {
+  //     if (!newreport.includes(v)) {
+  //       newreport.push(v);
+  //     }
+  //   }); //중복제거 //for문안에서만 사용하는 newarray
+
+  //   for (let g = 0; g < id_list.length; g++) {
+  //     searchText = id_list[g];
+  //     for (let i = 0; i < report.length; i++) {
+  //       newarray.push(newreport[i].split(" "));
+  //     }
+  //     for (let i = 0; i < newarray.length; i++) {
+  //       if (newarray[i][1] === searchText) {
+  //         temp.push(newarray[i]);
+  //         if (temp.length == 2) {
+  //           banned.push(searchText);
+  //         }
+  //       }
+  //     }
+  //     reported[g] = temp.length; // [1,2,0,2]
+  //     temp = [];
+  //     newarray = [];
+  //   }
+
+  //   for (let g = 0; g < banned.length; g++) {
+  //     searchText = banned[g];
+  //     for (let i = 0; i < report.length; i++) {
+  //       newarray.push(newreport[i].split(" "));
+  //     }
+  //     for (let i = 0; i < newarray.length; i++) {
+  //       if (newarray[i][1] === searchText) {
+  //         mailed.push(newarray[i][0]);
+  //       }
+  //     }
+
+  //     temp = [];
+  //     newarray = [];
+  //   }
+  //   console.log(mailed);
+
+  //   const temp2 = {};
+  //   mailed.forEach((x) => {
+  //     temp2[x] = (temp2[x] || 0) + 1;
+  //   });
+  //   console.log(temp2);
+  //   return answer;
+  // }
+  // solution(id_list, report, k);
+
+  // const n = 4;
+  // const lost = [1];
+  // const reserve = [1, 3];
+
+  // function solution(n, lost, reserve) {
+  //   const 학생 = {};
+  //   let answer = 0;
+  //   let 전달한횟수;
+  //   for (let i = 1; i <= n; i++) {
+  //     학생[i] = 1;
+  //   }
+  //   lost.forEach(function (number) {
+  //     학생[number] -= 1;
+  //   });
+  //   reserve.forEach(function (number) {
+  //     학생[number] += 1;
+  //   });
+
+  //   for (let i = 1; i <= n; i++) {
+  //     if (학생[i] === 2 && 학생[i - 1] === 0) {
+  //       학생[i - 1]++;
+  //       학생[i]--;
+  //     } else if (학생[i] == 2 && 학생[i + 1] === 0) {
+  //       학생[i + 1]++;
+  //       학생[i]--;
+  //     }
+  //   }
+
+  //   const result = {};
+  //   학생.forEach(function (x) {
+  //     result[x] = (result[x] || 0) + 1;
+  //   });
+  //   console.log(학생);
+  //   return answer;
+  // }
+  // solution(n, lost, reserve);
+
+  //   function solution(n, lost, reserve) {
+  //     var answer = 0;
+  //     let i;
+  //     let bb;
+  //     let count = 0;
+  //     const lengthOfLost = lost.length;
+
+  //     for (i = lengthOfLost - 1; i >= 0; i--) {
+  //       if (
+  //         reserve.find((v) => v === lost[i] - 1) ||
+  //         reserve.find((v) => v === lost[i] + 1)
+  //       ) {
+  //         if (reserve.find((v) => v === lost[i] + 1)) {
+  //           bb = reserve.indexOf(lost[i] + 1);
+  //           reserve.splice(bb, 1);
+  //           console.log("plus one");
+  //           console.log(reserve);
+  //         }
+
+  //         if (reserve.find((v) => v === lost[i] - 1)) {
+  //           bb = reserve.indexOf(lost[i] - 1);
+  //           reserve.splice(bb, 1);
+  //           console.log("minus one");
+  //           console.log(reserve);
+  //         }
+  //         lost.splice(i, 1);
+  //       }
+  //     }
+
+  //     answer = n - lost.length;
+
+  //     return answer;
+  //   }
+  function solution(n, lost, reserve) {
+    let reserve2 = reserve;
+    let lost2 = lost;
+
+    for (i = 0; i < lost.length; i++) {
+      if (reserve2.find((element) => lost[i] - 1)) {
+        let temp = reserve2.indexOf(lost[i] - 1);
+        lost2.splice(i, 1);
+        reserve2.splice(temp, 1);
+      }
+      if (reserve2.find((element) => lost[i] + 1)) {
+        let temp = reserve2.indexOf(lost[i] + 1);
+        lost2.splice(i, 1);
+        reserve2.splice(temp, 1);
+      }
+    }
+
+    return n - lost2.length;
+  }
+  // 5<-4->3 +-1
+  // 전체학생수 n
+  // 체육복필요학생 배열lost
+  // 체육복 여러개인 학생 배열 reserve
+  // 최대 체육수업 수강인원 return
+  // 1.로스트 배열값에서 +-1에대한 수가 reserve에 있는지 탐색 [include사용]
+  // 2. lost에서 include값이 참 거짓을 반영하는 makeit 배열생성
+  // 3. makeit배열에서의 true값+reserve 배열의 길을 return
+  // function solution(participant, completion) {
+  //   var answer = "";
+
+  //   for (let i = 0; i < participant.length; i++) {
+  //     let count = participant.filter(
+  //       (Element) => participant[i] === Element
+  //     ).length;
+
+  //     if (count > 1) {
+  //       let counting =
+  //         count -
+  //         completion.filter((Element) => Element === participant[i]).length;
+
+  //       for (let j = 0; j < counting; j++) {
+  //         answer = participant[i];
+  //       }
+  //     }
+
+  //     if (count == 1 && !completion.includes(participant[i])) {
+  //       answer = participant[i];
+  //     }
+  //   }
+  //   return answer;
+  // }
+</script>
+
+<!-- 
+console.log("첫번쨰", lost[i], lost[i] + 1);
+console.log(
+  "두번째",
+  reserve.find((v) => v === lost[i] + 1)
+);
+console.log("세번째", lost[i], lost[i] - 1);
+console.log(
+  "네번째",
+  reserve.find((v) => v === lost[i] - 1)
+); -->
