@@ -7,7 +7,7 @@ import './Slider.css';
 function Slider(toggle: boolean) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideLength = Photo.length;
-
+    console.log(toggle);
     const autoScroll = true;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let slideInterval: string | number | NodeJS.Timer | undefined;
@@ -16,7 +16,6 @@ function Slider(toggle: boolean) {
     function auto() {
         if (toggle) {
             slideInterval = setInterval(nextSlide, intervalTime);
-            console.log(toggle);
         }
         //지정된 시간마다 currentSlide를 업데이트.
     }
@@ -32,11 +31,9 @@ function Slider(toggle: boolean) {
     useEffect(() => {
         if (autoScroll) {
             auto(); //토글이 true라면 currentSlide업데이트
-            console.log('state업데이트');
         }
         return () => {
             clearInterval(slideInterval); //setInterval을 클리어 시켜줘서 재렌더링 되어도 업데이트 횟수를 한번만 하게함
-            console.log('useEffect리턴');
         };
     }, [currentSlide]);
 

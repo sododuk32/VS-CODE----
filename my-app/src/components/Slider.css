@@ -4,12 +4,11 @@
 }
 .slide {
     position: absolute;
-    opacity: 0.5;
-    width: 40vw;
-    height: 30vw;
+    opacity: 1;
+    width: 35vw;
+    height: 25vw;
     transform: translateX(-50%);
     transition: all 0.5s ease;
-    justify-content: center;
 }
 
 .slidecurrent {
@@ -18,15 +17,9 @@
 
     transform: translateX(135%);
     transition: all 0.5s ease;
-    justify-content: center;
 }
 
 .images {
     width: 500px;
-    height: 900px;
-}
-
-.current {
-    opacity: 0;
-    transform: translateX(0);
+    height: 700px;
 }

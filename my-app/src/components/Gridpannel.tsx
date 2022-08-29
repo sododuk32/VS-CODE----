@@ -5,7 +5,7 @@ import grid3 from '../img/grid3.jpg';
 import grid4 from '../img/grid4.jpg';
 import grid5 from '../img/grid5.jpg';
 import grid6 from '../img/grid6.jpg';
-
+import './Gridpannel.css';
 function Gridpannel() {
     return (
         <div className="gridPannel">

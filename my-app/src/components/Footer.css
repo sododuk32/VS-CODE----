@@ -1,0 +1,11 @@
+.footerContainer {
+    display: flex;
+    justify-content: center;
+}
+.footer1 {
+    font-size: 12px;
+    color: #6e6e73;
+    background-color: #f5f5f7;
+    z-index: 1;
+    width: 979px;
+}

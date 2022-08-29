@@ -8,16 +8,21 @@ import Gridpannel from './components/Gridpannel';
 import Footer from './components/Footer';
 function App() {
     const [realtoggle, setToggle] = useState(true);
-    if (!realtoggle) {
-        console.log(realtoggle);
-    }
+
     return (
         <div className="App">
             <Nav />
+            {realtoggle ? 'True' : 'False'}
             <Mainpage />
             <Gridpannel />
+            {realtoggle}
             {Slider(realtoggle)}
-            <button onClick={() => setToggle(!setToggle)}>Play/Stop</button>
+            <button
+                className="ToggleButton"
+                onClick={() => setToggle(!realtoggle)}
+            >
+                Play/Stop
+            </button>
             <Footer />
         </div>
     );
