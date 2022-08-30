@@ -1,4 +1,4 @@
-import React from 'react';
+3import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import Nav from './components/Nav';
@@ -8,7 +8,8 @@ import Gridpannel from './components/Gridpannel';
 import Footer from './components/Footer';
 function App() {
     const [realtoggle, setToggle] = useState(true);
-
+    const  toggle = useMemo( ()=>(); ,[realtoggle]
+ )
     return (
         <div className="App">
             <Nav />
