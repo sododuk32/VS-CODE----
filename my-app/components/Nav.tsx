@@ -1,13 +1,21 @@
 import React from 'react';
-import './style.css';
-import Logo from '../img/logog.png';
+import styles from './Nav.module.css';
+import Image from 'next/image';
+
 const Nav = () => {
     return (
-        <div className="navBar">
-            <div className="navList">
-                <ul className="list">
-                    <li className="navLogo">
-                        <img className="logoImage" alt="iPhone_01" src={Logo} />
+        <div className={styles.navBar}>
+            <div className={styles.navList}>
+                <ul className={styles.list}>
+                    <li className={styles.navLogo}>
+                        <Image
+                            className={styles.logogImage}
+                            src="/logo.png"
+                            alt="iPhone_01"
+                            layout="fixed"
+                            width={30.993}
+                            height={20.993}
+                        />
                     </li>
                     <li>Store</li>
                     <li>Mac</li>

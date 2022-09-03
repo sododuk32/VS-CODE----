@@ -1,6 +1,5 @@
 import React from 'react';
-import './Footer.css';
-function Footer() {
+function Footer2() {
     return (
         <div className="footerContainer">
             <span className="footer1">
@@ -65,4 +64,4 @@ function Footer() {
     );
 }
 
-export default Footer;
+export default Footer2;

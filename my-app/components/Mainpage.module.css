@@ -2,7 +2,7 @@
     padding-top: 48px;
 }
 
-.selrection-content {
+.selrectioncontent {
     display: flex;
     justify-content: center;
     padding-top: 1vw;
@@ -31,7 +31,9 @@
 .LeanMoreLink {
     text-decoration: none;
 }
-
+.LeanMoreLink2 {
+    text-decoration: none;
+}
 .iPhoneShow2 {
     text-decoration: none;
 }

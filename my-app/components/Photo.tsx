@@ -1,9 +1,9 @@
-import img1 from '../img/appleshow1.jpg';
-import img2 from '../img/appleshow2.jpg';
-import img3 from '../img/appleshow3.jpg';
-import img4 from '../img/appleshow4.jpg';
-import img5 from '../img/appleshow5.jpg';
-import img6 from '../img/appleshow6.jpg';
+import img1 from '../public/appleshow1.jpg';
+import img2 from '../public/appleshow2.jpg';
+import img3 from '../public/appleshow3.jpg';
+import img4 from '../public/appleshow4.jpg';
+import img5 from '../public/appleshow5.jpg';
+import img6 from '../public/appleshow6.jpg';
 
 export const Photo = [
     {

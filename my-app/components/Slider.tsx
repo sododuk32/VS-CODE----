@@ -2,8 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Photo } from './Photo';
-import './Slider.css';
-
+import styles from './Slider.module.css';
+import Image from 'next/image';
 function Slider(toggle: boolean) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideLength = Photo.length;
@@ -31,32 +31,36 @@ function Slider(toggle: boolean) {
     useEffect(() => {
         if (autoScroll) {
             auto(); //토글이 true라면 currentSlide업데이트
+            console.log('update');
         }
         return () => {
             clearInterval(slideInterval); //setInterval을 클리어 시켜줘서 재렌더링 되어도 업데이트 횟수를 한번만 하게함
         };
-    }, [currentSlide]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentSlide, toggle]);
 
     return (
         <>
-            <div className="slider">
+            <div className={styles.slider}>
                 {Photo.map((slide, index) => {
                     return (
                         <div
                             className={
                                 index === currentSlide
-                                    ? 'slidecurrent'
-                                    : 'slide'
+                                    ? styles.slidecurrent
+                                    : styles.slide
                             }
                             //currentSlide가 map을 한바퀴돌때 맞는 index를 찾으면 slidecurrent div 생성
                             key={index}
                         >
                             {index === currentSlide && (
-                                <img
-                                    className="images"
+                                <Image
+                                    className={styles.images}
                                     src={slide.image}
                                     alt="slide"
+                                    layout="fill"
                                 />
+
                                 //위에서 생성된 div 안에다 currentSlide와 맞는 Photo배열의 index안에잇는 image를 생성
                             )}
                         </div>
