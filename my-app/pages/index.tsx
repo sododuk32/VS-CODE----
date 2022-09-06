@@ -1,12 +1,34 @@
 import type { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+
 import Nav from '../components/Nav';
 import Mainpage from '../components/Mainpage';
 import Grid from '../components/Gridpannel';
 import Slider from '../components/Slider';
+import axios from 'axios';
 const Home: NextPage = () => {
-    const [realtoggle, setToggle] = useState(true);
+    const [realtoggle, setToggle] = useState(false);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/')
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        axios
+            .get('http://localhost:8080/db')
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.res);
+            });
+    }, []);
+
     return (
         <>
             <Nav />

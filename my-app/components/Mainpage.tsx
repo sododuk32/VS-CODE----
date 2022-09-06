@@ -79,7 +79,7 @@ function Mainpage() {
                 </a>
                 <a
                     className={styles.LeanMoreLink}
-                    href="https://www.apple.com/iphone-13-pro/"
+                    href="/buyingIphone"
                     target="_self"
                 >
                     LeanMore
@@ -135,6 +135,7 @@ function Mainpage() {
                     />
                 </a>
             </div>
+            <button></button>
         </div>
     );
 }
