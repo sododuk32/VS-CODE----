@@ -1,0 +1,25 @@
+.localNav {
+    display: flex;
+    height: 42px;
+    padding-top: 1em;
+    justify-content: space-around;
+    font-weight: bold;
+    border-bottom: double #cdcdd0;
+    z-index: 1;
+}
+
+.plate1 {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 980px;
+}
+.PhotoRow {
+    display: flex;
+}
+.findyours {
+    display: flex;
+    font-size: x-large;
+    justify-content: center;
+    padding-top: 3em;
+}
