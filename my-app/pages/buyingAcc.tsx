@@ -1,8 +1,11 @@
 import React from 'react';
 import Nav from '../components/Nav';
+import SelectAcc from '../components/selectAcc';
+
 import styles from './buyingAcc.module.css';
 import Image from 'next/image';
 import rowsPhoto from '../public/rowsPhoto.jpg';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 function buyingAcc() {
     return (
@@ -46,9 +49,11 @@ function buyingAcc() {
                     placeholder="액세서리 검색"
                 />
             </div>
-            <div>제품,카테고리별 검색 div생성자</div>
-            <div>슬라이드 및 카드</div>
-            <div>footer</div>
+            <div className={styles.AccContents}>
+                <SelectAcc />
+                <div>슬라이드 및 카드</div>
+                <div>footer</div>
+            </div>
         </div>
     );
 }
