@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import styles from './SelectAcc.module.css';
-
+import AccSlider from './AccSlider';
 function SelectAcc() {
     const [first, setfirst] = useState(true);
     const [second, setsecond] = useState(false);
@@ -100,6 +100,7 @@ function SelectAcc() {
                         </li>
                     </ul>
                 </div>
+                <AccSlider />
             </div>
         </div>
     );

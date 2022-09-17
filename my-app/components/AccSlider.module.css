@@ -1,0 +1,8 @@
+.Accbody {
+    position: relative;
+    top: 500px;
+}
+.cardcontens {
+    flex-direction: column;
+    align-items: center;
+}
