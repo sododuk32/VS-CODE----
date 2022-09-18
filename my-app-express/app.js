@@ -27,16 +27,31 @@ const connection = mysql.createConnection({
 connection.connect();
 
 let data1;
+let sqltemp;
 
-connection.query("SELECT * from product_Info", (error, rows, fields) => {
-  if (error) throw error;
-  data1 = rows;
-});
 app.get("/sayhelo", (req, res) => {
   res.send("hellllllo");
 });
-app.get("/db", (req, res) => {
-  res.send(data1);
 
-  connection.end();
+app.get("/db", (_req, res) => {
+  res.send(data1);
 });
+
+app.get("/image/:numbering", (req, res) => {
+  let image_numbering = req.params.numbering;
+
+  res.send(findImageName(image_numbering));
+});
+
+function findImageName(numbering) {
+  connection.query(
+    "SELECT * FROM iphone.images WHERE numbering =" + { image_numbering } + ";",
+    (error, rows, fields) => {
+      if (error) throw error;
+      sqltemp = rows;
+    }
+  );
+  return sqltemp;
+}
+
+connection.end();

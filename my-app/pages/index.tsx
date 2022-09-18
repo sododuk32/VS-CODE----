@@ -17,8 +17,9 @@ const Home: NextPage = () => {
                 console.log(res);
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.res);
             });
+
         axios
             .get('http://localhost:8080/db')
             .then((res) => {

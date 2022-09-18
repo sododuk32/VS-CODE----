@@ -1,11 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { useState } from 'react';
 import styles from './SelectAcc.module.css';
 import AccSlider from './AccSlider';
+import axios from 'axios';
 function SelectAcc() {
     const [first, setfirst] = useState(true);
     const [second, setsecond] = useState(false);
+    let photo1;
+
+    axios
+        .get('http://localhost:8080/image?numbering=6')
+        .then((res) => {
+            photo1 = res;
+            console.log(photo1);
+        })
+        .catch((err) => {
+            console.log(err.res);
+        });
 
     function changing1() {
         setfirst(!first);

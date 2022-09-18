@@ -51,8 +51,8 @@ function buyingAcc() {
             </div>
             <div className={styles.AccContents}>
                 <SelectAcc />
-                <div>슬라이드 및 카드</div>
-                <div>footer</div>
+                <SelectAcc />
+                <SelectAcc />
             </div>
         </div>
     );
