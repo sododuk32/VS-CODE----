@@ -9,16 +9,23 @@ function SelectAcc() {
     const [first, setfirst] = useState(true);
     const [second, setsecond] = useState(false);
     let photo1;
-
-    axios
-        .get('http://localhost:8080/image?numbering=6')
-        .then((res) => {
-            photo1 = res;
-            console.log(photo1);
-        })
-        .catch((err) => {
-            console.log(err.res);
-        });
+    let temp1;
+    // let temp;
+    // axios
+    //     .get('http://localhost:8080/image/' + 1)
+    //     .then((res) => {
+    //         photo1 = res;
+    //         console.log(photo1?.data[0]?.image_name);
+    //     })
+    //     .catch((err) => {
+    //         return err.res;
+    //     });
+    const getData = async (number: string) => {
+        const res = await axios.get('http://localhost:8080/image/' + number);
+        const data = res?.data[0]?.image_name;
+        return data;
+    };
+    console.log(getData('6'));
 
     function changing1() {
         setfirst(!first);
@@ -45,8 +52,8 @@ function SelectAcc() {
                     <ul>
                         <li>
                             <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>image</div>
-                                <span>Mac</span>
+                                <div>fsdfg</div>
+                                dd
                             </a>
                         </li>
                         <li>

@@ -36,22 +36,25 @@ app.get("/sayhelo", (req, res) => {
 app.get("/db", (_req, res) => {
   res.send(data1);
 });
-
+let image_numbering;
 app.get("/image/:numbering", (req, res) => {
-  let image_numbering = req.params.numbering;
-
-  res.send(findImageName(image_numbering));
-});
-
-function findImageName(numbering) {
+  image_numbering = req.params.numbering;
+  console.log(image_numbering);
   connection.query(
-    "SELECT * FROM iphone.images WHERE numbering =" + { image_numbering } + ";",
+    "SELECT * FROM iphone.images WHERE numbering =" + image_numbering,
     (error, rows, fields) => {
       if (error) throw error;
       sqltemp = rows;
+      res.send(sqltemp);
+      console.log(res);
     }
   );
+});
+
+function findImageName(numbering) {
+  console.log(
+    "SELECT * FROM iphone.images WHERE numbering =" + { numbering } + ";"
+  );
+
   return sqltemp;
 }
-
-connection.end();
