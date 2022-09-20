@@ -1,49 +1,50 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styles from './SelectAcc.module.css';
 import AccSlider from './AccSlider';
+import Image from 'next/image';
+
 import axios from 'axios';
 function SelectAcc() {
+    console.log('Mounted');
     const [first, setfirst] = useState(true);
     const [second, setsecond] = useState(false);
-    let photo1;
-    let temp1;
-    // let temp;
-    // axios
-    //     .get('http://localhost:8080/image/' + 1)
-    //     .then((res) => {
-    //         photo1 = res;
-    //         console.log(photo1?.data[0]?.image_name);
-    //     })
-    //     .catch((err) => {
-    //         return err.res;
-    //     });
-    const getData = async (number: string) => {
-        const res = await axios.get('http://localhost:8080/image/' + number);
-        const data = res?.data[0]?.image_name;
-        return data;
-    };
-    console.log(getData('6'));
+    const [axing1, setaxing1] = useState(null);
+    const [axing2, setaxing2] = useState(null);
+
+    // function makeConnet(number: string) {
+    //     axios
+    //         .get('http://localhost:8080/image/' + number)
+    //         .then((res) => setaxing1(res?.data[0]?.image_name));
+    //     axios
+    //         .get('http://localhost:8080/image/3' + number)
+    //         .then((res) => setaxing2(res?.data[0]?.name));
+    // }
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/image/3')
+            .then((res) => setaxing1(res?.data[0]?.image_name));
+        axios
+            .get('http://localhost:8080/image/3')
+            .then((res) => setaxing2(res?.data[0]?.name));
+    }, []);
 
     function changing1() {
         setfirst(!first);
-        console.log(first);
         setsecond(!second);
-        console.log(second);
     }
     function changing2() {
         setsecond(!second);
-        console.log(second);
         setfirst(!first);
-        console.log(first);
     }
+
     return (
         <div>
             <button onClick={changing1}>Browse by Product</button>
             <button onClick={changing2}>Browse by Category</button>
-
             <div id="browseButtons">
                 <div
                     className={first === true ? styles.cont1 : styles.cont2}
@@ -51,10 +52,17 @@ function SelectAcc() {
                 >
                     <ul>
                         <li>
-                            <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>fsdfg</div>
-                                dd
-                            </a>
+                            <div>
+                                <Image
+                                    className={styles.logogImage}
+                                    src={'/' + axing1}
+                                    alt="iPhone_01"
+                                    layout="fixed"
+                                    width={70}
+                                    height={120}
+                                />
+                            </div>
+                            <div>{axing2}</div>
                         </li>
                         <li>
                             <a href="https://www.apple.com/shop/mac/accessories">

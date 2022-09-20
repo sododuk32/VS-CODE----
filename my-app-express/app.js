@@ -39,7 +39,6 @@ app.get("/db", (_req, res) => {
 let image_numbering;
 app.get("/image/:numbering", (req, res) => {
   image_numbering = req.params.numbering;
-  console.log(image_numbering);
   connection.query(
     "SELECT * FROM iphone.images WHERE numbering =" + image_numbering,
     (error, rows, fields) => {
