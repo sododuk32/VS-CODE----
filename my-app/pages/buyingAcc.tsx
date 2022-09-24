@@ -51,8 +51,6 @@ function buyingAcc() {
             </div>
             <div className={styles.AccContents}>
                 <SelectAcc />
-                <SelectAcc />
-                <SelectAcc />
             </div>
         </div>
     );

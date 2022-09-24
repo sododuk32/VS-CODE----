@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,7 +10,13 @@ import Slider from '../components/Slider';
 import axios from 'axios';
 const Home: NextPage = () => {
     const [realtoggle, setToggle] = useState(false);
+    let location;
+    let windowTest;
 
+    if (process.browser) {
+        location = document.location;
+        windowTest = window.location.href;
+    }
     useEffect(() => {
         axios
             .get('http://localhost:8080/')

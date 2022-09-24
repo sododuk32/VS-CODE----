@@ -28,7 +28,9 @@ const Nav = () => {
                     <li>Accessories</li>
                     <li>Support</li>
                     <li>search</li>
-                    <li>user</li>
+                    <li>
+                        <a href="/UsersBag">userBag</a>
+                    </li>
                 </ul>
             </div>
         </div>
