@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Nav.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Nav = () => {
     return (
@@ -25,11 +26,15 @@ const Nav = () => {
                     <li>AirPods</li>
                     <li>TV & Home</li>
                     <li>Only on Apple</li>
-                    <li>Accessories</li>
+                    <li>
+                        <Link href="/buyingAcc">Accesory</Link>
+                    </li>
                     <li>Support</li>
                     <li>search</li>
                     <li>
-                        <a href="/UsersBag">userBag</a>
+                        <Link href="/UsersBag">
+                            <a>userBag</a>
+                        </Link>
                     </li>
                 </ul>
             </div>

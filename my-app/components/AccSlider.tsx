@@ -40,24 +40,22 @@ function AccSlider() {
         },
     ];
     // eslint-disable-next-line prettier/prettier
-    const [carting, setcarting] = useState<Product>([]);
+    const [carting, setcarting] = useState<Product[]>([]);
     let UserCart: Array<Product> = [];
 
     function customF(n: number) {
         let UserCart: Array<Product> = [];
 
-        if (!carting) {
-            for (let i = 0; i < UserCart.length; i++) {
-                UserCart.push(carting[i]);
-            }
-
-            UserCart.push(productInfo[n]);
+        for (let i = 0; i < carting.length; i++) {
+            UserCart.push(carting[i]);
+            console.log('이전거 푸시 usercart' + UserCart);
         }
 
-        console.log(UserCart);
+        UserCart.push(productInfo[n]);
+
         setcarting(UserCart);
         let UserCart_object = { items: UserCart };
-        console.log(carting);
+        console.log('결과값 carting' + carting);
 
         setCookie('cart', UserCart_object, { path: '/' });
         return alert('담김');

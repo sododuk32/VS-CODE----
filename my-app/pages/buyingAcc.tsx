@@ -1,11 +1,10 @@
 import React from 'react';
 import Nav from '../components/Nav';
-import SelectAcc from '../components/selectAcc';
-
+import SelectAcc from '../components/SelectAcc';
 import styles from './buyingAcc.module.css';
 import Image from 'next/image';
 import rowsPhoto from '../public/rowsPhoto.jpg';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Link from 'next/link';
 
 function buyingAcc() {
     return (
@@ -15,7 +14,9 @@ function buyingAcc() {
                 <a href="https://www.apple.com/kr/shop/accessories/all">
                     액세서리
                 </a>
-                <a href="/buyingAcc">모두 검색</a>
+                <Link href="/buyingAcc">
+                    <a>모두 검색</a>
+                </Link>
             </div>
 
             <div>

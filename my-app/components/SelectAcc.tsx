@@ -13,18 +13,17 @@ function SelectAcc() {
     const [second, setsecond] = useState(false);
     const [axing1, setaxing1] = useState(null);
     const [axing2, setaxing2] = useState(null);
-    // let temp1: string[] = [];
-    // let temp2: string[] = [];
 
-    // useEffect(() => {
-    //     axios
-    //         .get('http://localhost:8080/image/3')
-    //         .then((res) => setaxing1(res?.data[0]?.image_name));
-    //     axios
-    //         .get('http://localhost:8080/image/3')
-    //         .then((res) => setaxing2(res?.data[0]?.name));
-    // }, []);
-
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/image/3')
+            .then((res) => setaxing1(res?.data[0]?.image_name));
+        axios
+            .get('http://localhost:8080/image/3')
+            .then((res) => setaxing2(res?.data[0]?.name));
+    }, []);
+    console.log(axing1);
+    console.log(axing2);
     function changing1() {
         setfirst(!first);
         setsecond(!second);
@@ -45,7 +44,7 @@ function SelectAcc() {
                 >
                     <ul>
                         <li>
-                            {/* <div>
+                            <div>
                                 <Image
                                     className={styles.Icon}
                                     src={'/' + axing1}
@@ -54,7 +53,7 @@ function SelectAcc() {
                                     width={70}
                                     height={120}
                                 />
-                            </div> */}
+                            </div>
                             <div>{axing2}</div>
                         </li>
                         <li>
