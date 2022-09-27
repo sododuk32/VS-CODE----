@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Mainpage.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import Unicefimg from '../public/unicef.png';
 import iPhoneimg from '../public/iphone.jpg';
 import iPhoneimg2 from '../public/iphone2.jpg';
@@ -77,13 +78,11 @@ function Mainpage() {
                         height={125.993}
                     />
                 </a>
-                <a
-                    className={styles.LeanMoreLink}
-                    href="/buyingIphone"
-                    target="_self"
-                >
-                    LeanMore
-                </a>
+                <Link href="/buyingIphone">
+                    <a className={styles.LeanMoreLink} target="_self">
+                        <a>LeanMore</a>
+                    </a>
+                </Link>
 
                 <a
                     className={styles.iPhoneShow2}

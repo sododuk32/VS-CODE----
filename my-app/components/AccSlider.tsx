@@ -1,23 +1,24 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-string-refs */
 import React from 'react';
 import styles from './AccSlider.module.css';
-import CartCookies from './notused/CookiesSave';
+import { useCookies } from 'react-cookie';
 import Image from 'next/image';
 import photo1 from '../public/MHXH3.jpg';
 import photo2 from '../public/MPPP3.jpg';
 import photo3 from '../public/MPRY3_AV1.jpg';
-
+import { useState, useMemo } from 'react';
 function AccSlider() {
+    const [cookies, setCookie] = useCookies(['cart']);
+
     type Product = {
         id: string;
         name: string;
         price: string;
         imgName: string;
     };
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const productInfo: Array<Product> = [
         {
             id: '1',
@@ -38,54 +39,29 @@ function AccSlider() {
             imgName: 'MPRY3_AV1.jpg',
         },
     ];
-
+    // eslint-disable-next-line prettier/prettier
+    const [carting, setcarting] = useState<Product>([]);
     let UserCart: Array<Product> = [];
 
-    function setCookie(key, value, expiredays) {
-        let todayDate = new Date();
-        todayDate.setDate(todayDate.getDate() + expiredays); // 현재 시각 + 일 단위로 쿠키 만료 날짜 변경
-        //todayDate.setTime(todayDate.getTime() + (expiredays * 24 * 60 * 60 * 1000)); // 밀리세컨드 단위로 쿠키 만료 날짜 변경
-        document.cookie =
-            key +
-            '=' +
-            escape(value) +
-            '; path=/; expires=' +
-            todayDate.toString() +
-            ';';
-    }
-
-    function getCookie(key) {
-        key = new RegExp(key + '=([^;]*)'); // 쿠키들을 세미콘론으로 구분하는 정규표현식 정의
-        if (process.browser) {
-            return key.test(document.cookie) ? unescape(RegExp.$1) : '';
-        }
-        // 인자로 받은 키에 해당하는 키가 있으면 값을 반환
-    }
-    function boolCheckCookie(key) {
-        return getCookie(key) != '' ? true : false;
-    }
-
-    function checkCookieTest(key) {
-        let val = getCookie(key);
-        if (val != '') {
-            return val;
-        } else {
-            val = prompt(key + ' 쿠키의 값을 입력해주세요:', '');
-            if (val != '' && val != null) {
-                setCookie(key, val, 365);
-                console.log(setCookie(key, val, 365));
-                return val;
-            }
-        }
-    }
     function customF(n: number) {
-        UserCart.push(productInfo[n]);
+        let UserCart: Array<Product> = [];
+
+        if (!carting) {
+            for (let i = 0; i < UserCart.length; i++) {
+                UserCart.push(carting[i]);
+            }
+
+            UserCart.push(productInfo[n]);
+        }
+
         console.log(UserCart);
-        setCookie('mykey', UserCart, 3000);
+        setcarting(UserCart);
+        let UserCart_object = { items: UserCart };
+        console.log(carting);
+
+        setCookie('cart', UserCart_object, { path: '/' });
         return alert('담김');
     }
-    console.log(getCookie('mykey'));
-    console.log(checkCookieTest('mykey'));
     return (
         <div>
             <div className={styles.Accbody}>

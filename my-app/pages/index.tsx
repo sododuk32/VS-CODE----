@@ -2,7 +2,6 @@
 import type { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-
 import Nav from '../components/Nav';
 import Mainpage from '../components/Mainpage';
 import Grid from '../components/Gridpannel';
@@ -10,13 +9,7 @@ import Slider from '../components/Slider';
 import axios from 'axios';
 const Home: NextPage = () => {
     const [realtoggle, setToggle] = useState(false);
-    let location;
-    let windowTest;
 
-    if (process.browser) {
-        location = document.location;
-        windowTest = window.location.href;
-    }
     useEffect(() => {
         axios
             .get('http://localhost:8080/')
