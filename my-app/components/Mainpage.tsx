@@ -78,12 +78,14 @@ function Mainpage() {
                         height={125.993}
                     />
                 </a>
-                <Link href="/buyingIphone">
+                <a className={styles.LeanMoreLink} target="_self">
+                    LeanMore
+                </a>
+                {/* <Link href="/buyingIphone">
                     <a className={styles.LeanMoreLink} target="_self">
                         <a>LeanMore</a>
                     </a>
-                </Link>
-
+                </Link> */}
                 <a
                     className={styles.iPhoneShow2}
                     href="https://www.apple.com/iphone-13-pro/"

@@ -40,24 +40,25 @@ function AccSlider() {
         },
     ];
     // eslint-disable-next-line prettier/prettier
-    const [carting, setcarting] = useState<Product[]>([]);
-    let UserCart: Array<Product> = [];
+    const [carting, setcarting] = useState<Product[]>([]); //네이밍 바꾸기 네이밍에 통일성을 주기
+    // let UserCart: Array<Product> = [];
 
     function customF(n: number) {
-        let UserCart: Array<Product> = [];
+        // let UserCart: Array<Product> = [];
 
-        for (let i = 0; i < carting.length; i++) {
-            UserCart.push(carting[i]);
-            console.log('이전거 푸시 usercart' + UserCart);
-        }
+        // for (let i = 0; i < carting.length; i++) {
+        //     UserCart.push(carting[i]);
+        //     console.log('이전거 푸시 usercart' + UserCart);
+        // }
 
-        UserCart.push(productInfo[n]);
+        // UserCart.push(productInfo[n]);
 
-        setcarting(UserCart);
-        let UserCart_object = { items: UserCart };
+        setcarting([...carting, productInfo[n]]);
+
+        // let UserCart_object = { items: UserCart };
         console.log('결과값 carting' + carting);
 
-        setCookie('cart', UserCart_object, { path: '/' });
+        setCookie('cart', carting, { path: '/' });
         return alert('담김');
     }
     return (

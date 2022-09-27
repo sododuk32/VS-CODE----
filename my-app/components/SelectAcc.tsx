@@ -13,7 +13,7 @@ function SelectAcc() {
     const [second, setsecond] = useState(false);
     const [axing1, setaxing1] = useState(null);
     const [axing2, setaxing2] = useState(null);
-
+    // 유저의 사용감과 성능을위해 sql문 최적화와 api횟수를 최소한으로 만들기
     useEffect(() => {
         axios
             .get('http://localhost:8080/image/3')
