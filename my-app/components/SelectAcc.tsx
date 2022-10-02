@@ -5,6 +5,8 @@ import { useState } from 'react';
 import styles from './SelectAcc.module.css';
 import AccSlider from './AccSlider';
 import Image from 'next/image';
+import 'animate.css/animate.min.css';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 import axios from 'axios';
 function SelectAcc() {
@@ -37,6 +39,9 @@ function SelectAcc() {
         <div>
             <button onClick={changing1}>Browse by Product</button>
             <button onClick={changing2}>Browse by Category</button>
+            <AnimationOnScroll animateIn="animate__bounceIn">
+                <h2>Some Text</h2>
+            </AnimationOnScroll>
             <div id="browseButtons">
                 <div
                     className={first === true ? styles.cont1 : styles.cont2}
@@ -120,6 +125,9 @@ function SelectAcc() {
                         </li>
                     </ul>
                 </div>
+                <AnimationOnScroll animateIn="animate__bounceIn">
+                    <h2>Some Text</h2>
+                </AnimationOnScroll>
                 <AccSlider />
             </div>
         </div>
