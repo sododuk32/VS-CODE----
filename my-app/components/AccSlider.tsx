@@ -2,22 +2,27 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-string-refs */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './AccSlider.module.css';
 import { useCookies } from 'react-cookie';
+import Cookies from 'react-cookie';
 import Image from 'next/image';
 import photo1 from '../public/MHXH3.jpg';
 import photo2 from '../public/MPPP3.jpg';
 import photo3 from '../public/MPRY3_AV1.jpg';
 import { useState, useMemo } from 'react';
+
 function AccSlider() {
     const [cookies, setCookie] = useCookies(['cart']);
+    const [carting, setcarting] = useState<Product[]>([]);
 
+    useEffect(() => console.log('mounted'), [carting]);
     type Product = {
         id: string;
         name: string;
         price: string;
         imgName: string;
+        count: number;
     };
     const productInfo: Array<Product> = [
         {
@@ -25,41 +30,38 @@ function AccSlider() {
             name: 'iPhone 14 Silicone Case with MagSafe - Lilac',
             price: '49',
             imgName: 'MHXH3.jpg',
+            count: 1,
         },
         {
             id: '2',
             name: 'MagSafe Charger',
             price: '39',
             imgName: 'MPPP3.jpg',
+            count: 1,
         },
         {
             id: '3',
             name: 'iPhone 14 Pro Max Leather Case with MagSafe - Ink',
             price: '59',
             imgName: 'MPRY3_AV1.jpg',
+            count: 1,
         },
     ];
-    // eslint-disable-next-line prettier/prettier
-    const [carting, setcarting] = useState<Product[]>([]); //네이밍 바꾸기 네이밍에 통일성을 주기
-    // let UserCart: Array<Product> = [];
 
+    const [mk1, setmk1] = useState<number>(0);
+    console.log('버튼 눌림 횟수:' + mk1);
     function customF(n: number) {
-        // let UserCart: Array<Product> = [];
-
-        // for (let i = 0; i < carting.length; i++) {
-        //     UserCart.push(carting[i]);
-        //     console.log('이전거 푸시 usercart' + UserCart);
-        // }
-
-        // UserCart.push(productInfo[n]);
-
-        setcarting([...carting, productInfo[n]]);
-
-        // let UserCart_object = { items: UserCart };
-        console.log('결과값 carting' + carting);
-
+        let chngCart = carting;
+        let tempName = productInfo[n].name;
+        if (chngCart.some((e) => e.name === tempName)) {
+            let location = chngCart.findIndex((x) => x.name === tempName);
+            chngCart[location].count++;
+            setcarting(chngCart);
+        }
+        if (!chngCart.some((e) => e.name === tempName)) {
+            setcarting([...chngCart, productInfo[n]]);
+        }
         setCookie('cart', carting, { path: '/' });
-        return alert('담김');
     }
     return (
         <div>
