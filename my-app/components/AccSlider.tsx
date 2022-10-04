@@ -50,18 +50,33 @@ function AccSlider() {
 
     const [mk1, setmk1] = useState<number>(0);
     console.log('버튼 눌림 횟수:' + mk1);
+    let mk2 = 0;
     function customF(n: number) {
+        if (carting.length === 0) {
+            setCookie('cart', productInfo[n].name, { path: '/' });
+        }
+
         let chngCart = carting;
         let tempName = productInfo[n].name;
         if (chngCart.some((e) => e.name === tempName)) {
-            let location = chngCart.findIndex((x) => x.name === tempName);
+            console.log('a');
+            let location = chngCart.findIndex((x) => x.name === tempName); //처음부터 이걸로 데이터찾기
             chngCart[location].count++;
             setcarting(chngCart);
         }
-        if (!chngCart.some((e) => e.name === tempName)) {
-            setcarting([...chngCart, productInfo[n]]);
+        //if문 2개보단 else if를 쓰자
+        else if (!chngCart.some((e) => e.name === tempName)) {
+            console.log('b');
+            setcarting(() => {
+                return [...chngCart, productInfo[n]];
+            });
+            console.log(productInfo[n]);
+            console.log(carting);
         }
-        setCookie('cart', carting, { path: '/' });
+        setCookie('cart', carting, { path: '/' }); //carting 이 비엇을때도 가정해야함
+        mk2 = mk1;
+        mk2++;
+        setmk1(mk2);
     }
     return (
         <div>
