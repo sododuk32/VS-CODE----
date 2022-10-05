@@ -4,7 +4,7 @@ import styles from './Bagscard.module.css';
 function Bagscard(
     photoName: string,
     productName: string,
-    amount: string,
+    amount: number,
     price: string
 ) {
     return (
@@ -14,7 +14,7 @@ function Bagscard(
                 <div id="cardDetail" className={styles.cardDetail}>
                     <div id="productInfo" className={styles.productInfo}>
                         <div id="productName" className={styles.productName}>
-                            {photoName}
+                            {productName}
                         </div>
                         <div
                             id="productAmount"

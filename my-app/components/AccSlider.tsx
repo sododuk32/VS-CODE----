@@ -60,7 +60,7 @@ function AccSlider() {
         let tempName = productInfo[n].name;
         if (chngCart.some((e) => e.name === tempName)) {
             console.log('a');
-            let location = chngCart.findIndex((x) => x.name === tempName); //처음부터 이걸로 데이터찾기
+            let location = chngCart.findIndex((x) => x.name === tempName);
             chngCart[location].count++;
             setcarting(chngCart);
         }
