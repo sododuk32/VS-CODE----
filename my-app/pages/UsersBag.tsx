@@ -14,7 +14,6 @@ function UsersBag() {
         imgName: string;
         count: number;
     };
-    const [domLoaded, setDomLoaded] = useState(false);
 
     const [cookies, setCookie, removeCookie] = useCookies<any>(['cart']);
 
