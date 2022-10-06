@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const cors = require("cors");
-
+let jwt = require("jsonwebtoken");
+let secretObj = require("jwt-key");
 app.use(cors());
 // 같은 컴퓨터 로컬 환경에서 포트는 다르지만 호스트가 같은 환경이라 발생한 이슈다
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
@@ -57,3 +58,44 @@ function findImageName(numbering) {
 
   return sqltemp;
 }
+//// 이하jwt
+let loginInfo;
+{
+  usersID = "";
+  usersPW = "";
+}
+let jwtToken = "";
+app.get("/login", (req, res) => {
+  loginInfo?.usersID = req.params.usersid;
+  loginInfo?.usersPW = req.params.usersid;
+  //이하 db인증
+  //이상 db인증
+  jwtToken = jwt.sign({id:loginInfo?.usersID, exp: Math.floor(Date.now() / 1000) + (60 * 60),}
+  , secretObj?.jwtObj?.secret, { algorithm: 'RS256'});
+  res.send(jwtToken);
+});
+
+
+function checkingToken(token) {
+  let decoded = jwt.verify(token, secretObj.secret);
+  if (decoded) {
+    // 권한이 있음.
+    return true;
+  } else {
+    // 권한이 없음.
+    return false;
+  }
+}
+
+
+app.get("/", (req, res) => {
+
+  if(checkingToken(req.params.jwt))
+  {
+    res.send("access");
+  }
+  else {res.send("access deny")}
+
+});
+
+
