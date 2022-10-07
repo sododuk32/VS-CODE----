@@ -7,14 +7,6 @@ import BagsCard from '../components/Bagscard';
 import styles from './UsersBag.module.css';
 import { useCookies } from 'react-cookie';
 function UsersBag() {
-    type Product = {
-        id: string;
-        name: string;
-        price: string;
-        imgName: string;
-        count: number;
-    };
-
     const [cookies, setCookie, removeCookie] = useCookies<any>(['cart']);
 
     const [hasMounted, setHasMounted] = React.useState(false);
