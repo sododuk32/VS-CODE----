@@ -17,13 +17,7 @@ function AccSlider() {
     const [carting, setcarting] = useState<Product[]>([]);
 
     useEffect(() => console.log('mounted'), [carting]);
-    type Product = {
-        id: string;
-        name: string;
-        price: string;
-        imgName: string;
-        count: number;
-    };
+
     const productInfo: Array<Product> = [
         {
             id: '1',

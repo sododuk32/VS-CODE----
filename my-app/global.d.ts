@@ -5,3 +5,4 @@ type Product = {
     imgName: string;
     count: number;
 };
+let myjwtt = '';
