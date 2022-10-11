@@ -47,7 +47,7 @@ function Mainpage() {
                     href="https://www.apple.com/us-hed/shop/back-to-school"
                     target="_self"
                 >
-                    Shop Now
+                    Shop Now >
                 </a>
                 <a
                     className="catchImg"
@@ -79,7 +79,7 @@ function Mainpage() {
                     />
                 </a>
                 <a className={styles.LeanMoreLink} target="_self">
-                    LeanMore
+                    LeanMore >
                 </a>
                 {/* <Link href="/buyingIphone">
                     <a className={styles.LeanMoreLink} target="_self">
@@ -119,7 +119,7 @@ function Mainpage() {
                     target="_self"
                     style={{ paddingTop: 10, paddingBottom: 10 }}
                 >
-                    LeanMore
+                    LeanMore >
                 </a>
 
                 <a

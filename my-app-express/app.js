@@ -5,10 +5,11 @@ const cors = require("cors");
 let jwt = require("jsonwebtoken");
 let secretObj = "blipsblops";
 app.use(cors());
+app.use(express.json());
 // 같은 컴퓨터 로컬 환경에서 포트는 다르지만 호스트가 같은 환경이라 발생한 이슈다
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
 
-//
+// http 컨텐츠 타입 알아보기
 app.get("/", (req, res) => {
   res.send("Hello this is db connecting node server!");
 });
@@ -64,9 +65,10 @@ let jwtToken = "";
 app.post("/login", (req, res) => {
   let loginInfo;
   {
-    usersID = req?.params?.usersid;
-    usersPW = req?.params?.userspw;
+    usersID = req?.body?.usersid;
+    usersPW = req?.body?.userspw;
   }
+  console.log(req?.body);
   //이하 db인증
   //이상 db인증
 
@@ -82,6 +84,10 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/verify", (req, res) => {
-  console.log(req?.params?.mytoken);
-  res.send(req?.params?.mytoken);
+  let takeToken = req?.body?.mytoken;
+  console.log();
+  console.log(req.params);
+  let Keyresult = "";
+  Keyresult = jwt.verify(takeToken, secretObj, ["RS256"]);
+  res.send(Keyresult);
 });

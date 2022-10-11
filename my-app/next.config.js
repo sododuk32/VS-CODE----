@@ -12,3 +12,6 @@ module.exports = withImages({
 });
 
 // static 타입 이미지 처리 비활성화
+module.exports = {
+    includeDoctype: true,
+}; //사용자 에이전트 시트 제거
