@@ -4,8 +4,12 @@ const port = 8080;
 const cors = require("cors");
 let jwt = require("jsonwebtoken");
 let secretObj = "blipsblops";
+
 app.use(cors());
 app.use(express.json());
+const apiRouter = require("./routers/api");
+app.use("/api", apiRouter);
+
 // 같은 컴퓨터 로컬 환경에서 포트는 다르지만 호스트가 같은 환경이라 발생한 이슈다
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
 
