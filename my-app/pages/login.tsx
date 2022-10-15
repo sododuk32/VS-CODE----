@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable */
 import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -27,21 +28,24 @@ function login() {
             .then((res) => {
                 console.log(sendjson);
                 console.log(res.data);
-                setjwtk(res.data);
+                console.log(res.data.jwtToken);
+                setjwtk(res.data.jwtToken);
             });
     }
     // post api에 authorization 메인? 있는대 알아보기
     function verifyss() {
-        console.log('parameter' + jwtk);
-
         axios
-            .post('http://localhost:8080/verify', JSON.stringify(mytokenss), {
-                headers: { 'Content-Type': `application/json` },
+            .get('http://localhost:8080/verify', {
+                headers: {
+                    'Content-Type': `application/json`,
+                    withCredentials: true,
+                    Authorization: jwtk,
+                },
             })
             .then((res) => {
                 console.log(JSON.stringify(mytokenss));
                 console.log(res.data);
-                return console.log(res.data);
+                return console.log(res);
             });
     }
 

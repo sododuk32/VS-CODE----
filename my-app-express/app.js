@@ -7,8 +7,7 @@ let secretObj = "blipsblops";
 
 app.use(cors());
 app.use(express.json());
-const apiRouter = require("./routers/api");
-app.use("/api", apiRouter);
+const { verifyToken } = require("./middleware");
 
 // 같은 컴퓨터 로컬 환경에서 포트는 다르지만 호스트가 같은 환경이라 발생한 이슈다
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
@@ -75,23 +74,31 @@ app.post("/login", (req, res) => {
   console.log(req?.body);
   //이하 db인증
   //이상 db인증
-
-  jwtToken = jwt.sign(
-    {
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
-      data: { id: loginInfo?.usersID },
-      algorithm: "RS256",
-    },
-    secretObj
-  );
-  res.status(200).send(jwtToken);
+  try {
+    jwtToken = jwt.sign(
+      {
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        data: { id: loginInfo?.usersID },
+        algorithm: "RS256",
+      },
+      secretObj
+    );
+    return res.json({
+      code: 200,
+      message: "토큰발급완료",
+      jwtToken,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      code: 500,
+      message: "서버 에러",
+    });
+  }
 });
 
-app.post("/verify", (req, res) => {
-  let takeToken = req?.body?.mytoken;
-  console.log();
-  console.log(req.params);
-  let Keyresult = "";
-  Keyresult = jwt.verify(takeToken, secretObj, ["RS256"]);
-  res.send(Keyresult);
+app.get("/verify", verifyToken, (req, res) => {
+  let verifyresult = {};
+  let result = "";
+  res.json(res.result);
 });
