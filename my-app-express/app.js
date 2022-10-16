@@ -77,7 +77,7 @@ app.post("/login", (req, res) => {
   try {
     jwtToken = jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        exp: 60000,
         data: { id: loginInfo?.usersID },
         algorithm: "RS256",
       },
@@ -98,7 +98,6 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/verify", verifyToken, (req, res) => {
-  let verifyresult = {};
-  let result = "";
-  res.json(res.result);
+  let result = {};
+  res.json(result);
 });
