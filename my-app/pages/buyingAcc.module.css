@@ -12,16 +12,39 @@
     border-bottom: double #cdcdd0;
     z-index: 1;
 }
-
+.pagePhraseContainer {
+    width: 70%;
+    padding-left: 440px;
+}
+.pagePhraseContents {
+    width: 284px;
+}
+.MagSafeS {
+    margin-bottom: 0;
+    font-size: 45px;
+}
+.mixAndMatch {
+    margin-top: 0;
+    font-size: 45px;
+}
+.sulmyong {
+    font-size: 18px;
+    font-weight: bold;
+}
+.linked {
+    text-decoration: none;
+}
 .plate1 {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 980px;
+    width: auto;
 }
 .PhotoRow {
     display: flex;
+    justify-content: space-between;
 }
+
 .findyours {
     display: flex;
     font-size: x-large;

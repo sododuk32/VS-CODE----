@@ -23,21 +23,35 @@ function buyingAcc() {
             <div>
                 <div className={styles.plate1}>
                     <div className={styles.PhotoRow}>
-                        <div>
-                            <h2>MagSafe로 믹스앤매치.</h2>
-                            <p>
-                                케이스, 카드지갑, 무선 충전기, 배터리 팩까지
-                                간편하게 착.
-                            </p>
-                            <p>MagSafe 쇼핑하기</p>
+                        <div className={styles.pagePhraseContainer}>
+                            <div className={styles.pagePhraseContents}>
+                                <h2 className={styles.MagSafeS}>MagSafe로</h2>
+                                <h2 className={styles.mixAndMatch}>
+                                    믹스앤매치.
+                                </h2>
+                                <p className={styles.sulmyong}>
+                                    케이스, 카드지갑, 무선 충전기, 배터리 팩까지
+                                    간편하게 착용.
+                                </p>
+                                <a
+                                    href={
+                                        'https://www.apple.com/shop/accessories/all/magsafe'
+                                    } className={styles.linked}
+                                >
+                                    MagSafe 쇼핑하기 >
+                                </a>
+                            </div>
                         </div>
-                        <Image
-                            className="unicefImg"
-                            src={rowsPhoto}
-                            alt="rowPhoto1"
-                            width={2500}
-                            height={800}
-                        />
+                        <div className={styles.backPhoto}>
+                            <Image
+                                className="unicefImg"
+                                src={rowsPhoto}
+                                alt="intrinsic"
+                                width={1440}
+                                height={480}
+                             
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

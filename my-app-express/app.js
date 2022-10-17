@@ -66,23 +66,22 @@ function findImageName(numbering) {
 
 let jwtToken = "";
 app.post("/login", (req, res) => {
-  let loginInfo;
-  {
-    usersID = req?.body?.usersid;
-    usersPW = req?.body?.userspw;
-  }
+  let loginInfo = {
+    usersID: req?.body?.usersid,
+    usersPW: req?.body?.userspw,
+  };
   console.log(req?.body);
   //이하 db인증
   //이상 db인증
   try {
-    jwtToken = jwt.sign(
+    const jwtToken = jwt.sign(
       {
-        exp: 60000,
-        data: { id: loginInfo?.usersID },
-        algorithms: "HS256",
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        data: loginInfo.usersID,
       },
       secretObj
     );
+
     return res.json({
       code: 200,
       message: "토큰발급완료",
@@ -98,6 +97,6 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/verify", verifyToken, (req, res) => {
-  let result;
-  res.send(result);
+  console.log(req?.decoded);
+  res.send("처리완료");
 });
