@@ -5,6 +5,7 @@ import styles from './buyingAcc.module.css';
 import Image from 'next/image';
 import rowsPhoto from '../public/rowsPhoto.jpg';
 import Link from 'next/link';
+import AccSlider from '../components/AccSlider';
 
 function buyingAcc() {
     return (
@@ -40,18 +41,20 @@ function buyingAcc() {
                     </div>
                 </div>
             </div>
-            <div className={styles.findyours}>
-                <span>원하는 액세서리를 찾아보세요.</span>
-            </div>
-            <div className={styles.findyours}>
-                <input
-                    type="text"
-                    name="firstname"
-                    placeholder="액세서리 검색"
-                />
-            </div>
-            <div className={styles.AccContents}>
+
+            <div className={styles.thirdPannel}>
+                <div className={styles.findyours}>
+                    <span>원하는 액세서리를 찾아보세요.</span>
+                </div>
+                <div className={styles.findyours}>
+                    <input
+                        type="text"
+                        name="firstname"
+                        placeholder="액세서리 검색"
+                    />
+                </div>
                 <SelectAcc />
+                <AccSlider />
             </div>
         </div>
     );

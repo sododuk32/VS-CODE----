@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styles from './SelectAcc.module.css';
-import AccSlider from './AccSlider';
 import Image from 'next/image';
 import 'animate.css/animate.min.css';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
@@ -37,98 +36,99 @@ function SelectAcc() {
 
     return (
         <div>
-            <button onClick={changing1}>Browse by Product</button>
-            <button onClick={changing2}>Browse by Category</button>
-            <AnimationOnScroll animateIn="animate__bounceIn">
-                <h2>Some Text</h2>
-            </AnimationOnScroll>
-            <div id="browseButtons">
-                <div
-                    className={first === true ? styles.cont1 : styles.cont2}
-                    id="BrowsebyProduct"
-                >
-                    <ul>
-                        <li>
-                            <div>
-                                <Image
-                                    className={styles.Icon}
-                                    src={'/' + axing1}
-                                    alt="iPhone_01"
-                                    layout="fixed"
-                                    width={70}
-                                    height={120}
-                                />
-                            </div>
-                            <div>{axing2}</div>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>image</div>
-                                <span>iPad</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>image</div>
-                                <span>iPhone</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>image</div>
-                                <span>Watch</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/mac/accessories">
-                                <div>image</div>
-                                <span>TV & Home</span>
-                            </a>
-                        </li>
-                    </ul>
+            <div className={styles.SelctAccBody}>
+                <div className={styles.btns}>
+                    <button onClick={changing1}>Browse by Product</button>
+                    <button onClick={changing2}>Browse by Category</button>
                 </div>
-                <div
-                    className={second === true ? styles.cont1 : styles.cont2}
-                    id="BrowsebyCategory"
-                >
-                    <ul>
-                        <li>
-                            <a href="https://www.apple.com/shop/accessories/all/made-by-apple">
-                                <div>image</div>
-                                <span>Made by Apple</span>
-                            </a>
-                        </li>
 
-                        <li>
-                            <a href="https://www.apple.com/shop/accessories/all/made-by-apple">
-                                <div>image</div>
-                                <span>What&rsquo s New</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/accessories/all/made-by-apple">
-                                <div>image</div>
-                                <span>Cases & Protection</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/accessories/all/made-by-apple">
-                                <div>image</div>
-                                <span>Power & Cables</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/shop/accessories/all/made-by-apple">
-                                <div>image</div>
-                                <span>Apple Watch Bands</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div id="selecPannel" className={styles.changeBtn1}>
+                    <div
+                        className={first === true ? styles.cont1 : styles.cont2}
+                        id="BrowsebyProduct"
+                    >
+                        <ul className={styles.listOf}>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <Image
+                                        className={styles.Icon}
+                                        src={'/' + axing1}
+                                        alt="iPhone_01"
+                                        layout="fixed"
+                                        width={70}
+                                        height={70}
+                                    />
+                                    <span>Mac</span>
+                                </div>
+                                <div>{axing2}</div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>iPad</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>iPhone</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>Watch</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>TV & Home</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        className={
+                            second === true ? styles.cont1 : styles.cont2
+                        }
+                        id="BrowsebyCategory"
+                    >
+                        <ul className={styles.listOf}>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>Madi by Apple</span>
+                                </div>
+                            </li>
+
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>What&rsquo s New</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>Cases & Protection</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>Power & Cables</span>
+                                </div>
+                            </li>
+                            <li className={styles.BoxList}>
+                                <div className={styles.IconBox}>
+                                    <div>image</div>
+                                    <span>Apple Watch Bands</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <AnimationOnScroll animateIn="animate__bounceIn">
-                    <h2>Some Text</h2>
-                </AnimationOnScroll>
-                <AccSlider />
             </div>
         </div>
     );

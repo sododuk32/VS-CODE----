@@ -79,7 +79,7 @@ app.post("/login", (req, res) => {
       {
         exp: 60000,
         data: { id: loginInfo?.usersID },
-        algorithm: "RS256",
+        algorithms: "HS256",
       },
       secretObj
     );
@@ -98,6 +98,6 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/verify", verifyToken, (req, res) => {
-  let result = {};
-  res.json(result);
+  let result;
+  res.send(result);
 });

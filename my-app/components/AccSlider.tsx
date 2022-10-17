@@ -75,10 +75,12 @@ function AccSlider() {
     return (
         <div>
             <div className={styles.Accbody}>
-                <div id="nameofSlide">nameofs</div>
+                <span id="nameofSlide" className={styles.Featured}>
+                    Featured iPhone Accessories
+                </span>
 
-                <div className={styles.card}>
-                    <div className={styles.card} id="">
+                <div className={styles.cardSlider}>
+                    <div className={styles.card}>
                         <div className={styles.cardcontens}>
                             <Image
                                 id="AccPhoto"
@@ -88,43 +90,49 @@ function AccSlider() {
                                 width={266}
                                 height={291}
                             />
-                            <div id="">
+                            <div className={styles.productId}>
                                 iPhone 14 Silicone Case with MagSafe - Lilac
                             </div>
-                            <span>$49.00</span>
+                            <span className={styles.productPrice}>$49.00</span>
                             <button onClick={(event) => customF(0)}>buy</button>
                         </div>
                     </div>
                     <div className={styles.card}>
-                        <Image
-                            id="AccPhoto"
-                            src={photo2}
-                            alt=""
-                            layout="fixed"
-                            width={266}
-                            height={291}
-                        />
-                        <div>MagSafe Charger</div>
-                        <span>$39.00</span>
-                        <button onClick={(event) => customF(1)}>buy</button>
+                        <div className={styles.cardcontens}>
+                            <Image
+                                id="AccPhoto"
+                                src={photo2}
+                                alt=""
+                                layout="fixed"
+                                width={266}
+                                height={291}
+                            />
+                            <div className={styles.productId}>
+                                MagSafe Charger
+                            </div>
+                            <span className={styles.productPrice}>$39.00</span>
+                            <button onClick={(event) => customF(1)}>buy</button>
+                        </div>
                     </div>
                     <div className={styles.card}>
-                        <Image
-                            id="AccPhoto"
-                            src={photo3}
-                            alt=""
-                            layout="fixed"
-                            width={266}
-                            height={291}
-                        />
-                        <div>
-                            iPhone 14 Pro Max Leather Case with MagSafe - Ink
+                        <div className={styles.cardcontens}>
+                            <Image
+                                id="AccPhoto"
+                                src={photo3}
+                                alt=""
+                                layout="fixed"
+                                width={266}
+                                height={291}
+                            />
+                            <div className={styles.productId}>
+                                iPhone 14 Pro Max Leather Case with MagSafe -
+                                Ink
+                            </div>
+                            <span className={styles.productPrice}>$59.00</span>
+                            <button onClick={(event) => customF(2)}>buy</button>
                         </div>
-                        <span>$59.00</span>
-                        <button onClick={(event) => customF(2)}>buy</button>
                     </div>
                 </div>
-                <div id="nameofSlide">nameofs</div>
             </div>
         </div>
     );
