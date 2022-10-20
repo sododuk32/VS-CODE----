@@ -55,13 +55,13 @@ app.get("/image/:numbering", (req, res) => {
   );
 });
 
-function findImageName(numbering) {
-  console.log(
-    "SELECT * FROM iphone.images WHERE numbering =" + { numbering } + ";"
-  );
+// function findImageName(numbering) {
+//   console.log(
+//     "SELECT * FROM iphone.images WHERE numbering =" + { numbering } + ";"
+//   );
 
-  return sqltemp;
-}
+//   return sqltemp;
+// }
 //// 이하jwt
 
 let jwtToken = "";
@@ -72,8 +72,30 @@ app.post("/login", (req, res) => {
   };
   console.log(req?.body);
   //이하 db인증
+  let checkingId = {};
+  let containError;
+  let checkError = 0;
+  //ifnull(data,0) ->가져온 데이터가없을때 0을 보내고 js에서 받으면 이건 undefined가됨
+  connection.query(
+    "SELECT ifnull(data,0) * FROM iphone.user_info WHERE user_ID=" +
+      "'" +
+      loginInfo.usersID +
+      "'",
+    (error, rows, fields) => {
+      if (rows === undefined) {
+        console.log("no data matched");
+        checkError++;
+        containError = error;
+      }
+      console.log(rows);
+    }
+  );
   //이상 db인증
   try {
+    if (checkError > 0) {
+      console.log("에러임");
+      return res.send(error);
+    }
     const jwtToken = jwt.sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
@@ -88,7 +110,6 @@ app.post("/login", (req, res) => {
       jwtToken,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       code: 500,
       message: "서버 에러",

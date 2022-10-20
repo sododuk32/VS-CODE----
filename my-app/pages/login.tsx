@@ -26,8 +26,6 @@ function login() {
                 headers: { 'Content-Type': `application/json` },
             })
             .then((res) => {
-                console.log(sendjson);
-                console.log(res.data);
                 console.log(res.data.jwtToken);
                 setjwtk(res.data.jwtToken);
             });

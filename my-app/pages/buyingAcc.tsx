@@ -36,9 +36,10 @@ function buyingAcc() {
                                 <a
                                     href={
                                         'https://www.apple.com/shop/accessories/all/magsafe'
-                                    } className={styles.linked}
+                                    }
+                                    className={styles.linked}
                                 >
-                                    MagSafe 쇼핑하기 >
+                                    MagSafe 쇼핑하기 &gt;
                                 </a>
                             </div>
                         </div>
@@ -49,7 +50,6 @@ function buyingAcc() {
                                 alt="intrinsic"
                                 width={1440}
                                 height={480}
-                             
                             />
                         </div>
                     </div>
