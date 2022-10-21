@@ -9,7 +9,9 @@ function Bagscard(
     photoName: string,
     productName: string,
     amount: number,
-    price: string
+    price: string,
+    width: number,
+    height: number
 ) {
     return (
         <div>
@@ -20,8 +22,8 @@ function Bagscard(
                         src={'/' + photoName}
                         alt="pic"
                         layout="fixed"
-                        width={200}
-                        height={200}
+                        width={width}
+                        height={height}
                     />
                 </div>
                 <div id="cardDetail" className={styles.cardDetail}>

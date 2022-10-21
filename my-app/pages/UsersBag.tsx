@@ -29,7 +29,9 @@ function UsersBag() {
                     myArray2[i]?.imgName,
                     myArray2[i]?.name,
                     myArray2[i]?.count,
-                    myArray2[i]?.price
+                    myArray2[i]?.price,
+                    200,
+                    200
                 )
             );
             let temp = parseInt(myArray2[i]?.price) * myArray2[i]?.count;
@@ -56,7 +58,7 @@ function UsersBag() {
                     Installments at checkout.
                 </div>
                 {makingCard()}
-                {TotalPrice(price2.current)}
+                {TotalPrice()}
             </div>
         </div>
     );
