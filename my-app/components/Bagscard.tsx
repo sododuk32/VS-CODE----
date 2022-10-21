@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Bagscard.module.css';
+import Image from 'next/image';
 // 1. 이페이지 css를 만들어서 페이지 겉을 완성시킴
 // 2. 카드띄움
 // 3. 결제 버튼 누르면 쿠키 초기화 및 api에서 db의 주문정보 table에 구매 목록 및 uid 주문번호 를 입력하게함
@@ -13,7 +14,16 @@ function Bagscard(
     return (
         <div>
             <div id="cardContainer" className={styles.cardContainer}>
-                <div id="img">{photoName}</div>
+                <div id="img">
+                    <Image
+                        className={styles.productPhtos}
+                        src={'/' + photoName}
+                        alt="pic"
+                        layout="fixed"
+                        width={200}
+                        height={200}
+                    />
+                </div>
                 <div id="cardDetail" className={styles.cardDetail}>
                     <div id="productInfo" className={styles.productInfo}>
                         <div id="productName" className={styles.productName}>
@@ -25,8 +35,8 @@ function Bagscard(
                         >
                             {amount}
                         </div>
-                        <div id="productPrice" className={styles.productPrice}>
-                            {price}
+                        <div className={styles.productPrice}>
+                            {parseInt(price) * amount}
                         </div>
                     </div>
                     <div id="addMessage">Add a gift message or gift wrap</div>

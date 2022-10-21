@@ -1,17 +1,19 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Nav from '../components/Nav';
 import BagsCard from '../components/Bagscard';
 import styles from './UsersBag.module.css';
 import { useCookies } from 'react-cookie';
+import TotalPrice from '../components/TotalPrice';
 function UsersBag() {
     const [cookies, setCookie, removeCookie] = useCookies<any>(['cart']);
-
     const [hasMounted, setHasMounted] = React.useState(false);
+    const price2 = useRef(0);
     React.useEffect(() => {
         setHasMounted(true);
+        console.log('mounted');
     }, []);
     if (!hasMounted) {
         return null;
@@ -30,7 +32,8 @@ function UsersBag() {
                     myArray2[i]?.price
                 )
             );
-            console.log(i);
+            let temp = parseInt(myArray2[i]?.price) * myArray2[i]?.count;
+            price2.current += temp;
         }
         return myArray1;
     }
@@ -52,8 +55,8 @@ function UsersBag() {
                     in your order when you choose Apple Card Monthly
                     Installments at checkout.
                 </div>
-
                 {makingCard()}
+                {TotalPrice(price2.current)}
             </div>
         </div>
     );
