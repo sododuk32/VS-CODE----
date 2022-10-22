@@ -5,7 +5,6 @@ import React, { useRef } from 'react';
 import Nav from '../components/Nav';
 import { useState } from 'react';
 import Selectshipping from '../components/Selectshipping';
-import Selecttakeoff from '../components/Selecttakeoff';
 import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import useCookies from 'react-cookie';
@@ -16,7 +15,7 @@ function payments() {
     const [selectOrder, setselectOrder] = useState('delevered');
     const [hasMounted, setHasMounted] = React.useState(false);
     const price2 = useRef(0);
-
+    //키값 verify하는 메서드를 useEffect에 추가하기
     React.useEffect(() => {
         setHasMounted(true);
         console.log('mounted');

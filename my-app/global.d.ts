@@ -5,4 +5,12 @@ type Product = {
     imgName: string;
     count: number;
 };
-let myjwtt = '';
+type purchaseInfo = {
+    firstName: string;
+    lastName: string;
+    streetAdress: string;
+    Apt: string;
+    zipcode: number;
+    Email: string;
+    PhoneNumber: string;
+};

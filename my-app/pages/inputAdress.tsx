@@ -1,6 +1,50 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import styles from './inputAdress.module.css';
+import { useState } from 'react';
+import axios from 'axios';
+
 function inputAdress() {
+    const [Delinfo, setDelinfo] = useState<purchaseInfo>();
+    let myInfo: purchaseInfo = {
+        firstName: '',
+        lastName: '',
+        streetAdress: '',
+        Apt: '',
+        zipcode: 0,
+        Email: '',
+        PhoneNumber: '',
+    };
+    function sendingInfo() {
+        myInfo = {
+            firstName: document.getElementById('firstName')?.value,
+            lastName: document.getElementById('lastName')?.value,
+            streetAdress: document.getElementById('streetAdress')?.value,
+            Apt: document.getElementById('Apt')?.value,
+            zipcode: document.getElementById('zipcode')?.value,
+            Email: document.getElementById('Email')?.value,
+            PhoneNumber: document.getElementById('PhoneNumber')?.value,
+        };
+        axios
+            .post('http://localhost:8080/delInfo', JSON.stringify(myInfo), {
+                headers: { 'Content-Type': `application/json` },
+            })
+            .then((res) => {
+                if (res.data === 'complete') {
+                    console.log(res.data);
+                    //배송현황 페이지 이동 메서드 추가하기
+                }
+                //완료시 동작수행
+                if (res.data === 'ERROR') {
+                    console.log(res);
+                    console.log('you cant move something broke');
+                }
+                console.log('complete-Transfer');
+            });
+    }
+
     return (
         <div>
             <div className={styles.inputContainer}>
@@ -27,7 +71,7 @@ function inputAdress() {
                 <input type="text" id="PhoneNumber" placeholder="PhoneNumber" />
             </div>
 
-            <button>결제</button>
+            <button onClick={sendingInfo}>결제</button>
         </div>
     );
 }
