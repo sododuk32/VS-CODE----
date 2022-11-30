@@ -14,7 +14,7 @@ const { verifyToken } = require("./middleware");
 
 // http 컨텐츠 타입 알아보기
 app.get("/", (req, res) => {
-  res.send("Hello this is db connecting node server!");
+  res.send("asdfasdf" + (message = "Hello this is db connecting node server!"));
 });
 
 app.listen(port, () => {
@@ -75,9 +75,8 @@ app.post("/login", (req, res) => {
   let checkingId = {};
   let containError;
   let checkError = 0;
-  //ifnull(data,0) ->가져온 데이터가없을때 0을 보내고 js에서 받으면 이건 undefined가됨
   connection.query(
-    "SELECT ifnull(data,0) * FROM iphone.user_info WHERE user_ID=" +
+    "SELECT*FROM iphone.user_info WHERE user_ID=" +
       "'" +
       loginInfo.usersID +
       "'",
@@ -120,4 +119,98 @@ app.post("/login", (req, res) => {
 app.get("/verify", verifyToken, (req, res) => {
   console.log(req?.decoded);
   res.send("처리완료");
+});
+
+let pageNum = 0;
+let startNum = 0;
+let category = "";
+let addTagsql = "";
+
+app.post("/productInfo/:category/:startNum", (req, res) => {
+  startNum = req.params.startNum;
+  category = req.params.category;
+
+  console.log("페이지 쿼리값" + JSON.stringify(req.query));
+  pageNum = startNum;
+
+  if (pageNum === (undefined || NaN)) {
+    pageNum = 1;
+    console.log("pageNuma is undefined");
+    return res.render("error", {
+      message: { reconnect: true },
+    });
+  }
+  pageNum = Number(pageNum);
+  let lengthss = 0;
+  let startPage = 0;
+
+  if (pageNum <= 0) {
+    pageNum = 1;
+  }
+  startPage = (pageNum - 1) * 20;
+
+  if (req.body.tags.length > 0) {
+    let arr = Object.values(req.body.tags);
+    addTagsql += " AND (";
+    for (let i = 0; i < arr.length; i++) {
+      if (i === 0) {
+        addTagsql += `productTag LIKE '%${arr[i]}%'`;
+      }
+      if (i != 0) {
+        addTagsql += `AND productTag LIKE '%${arr[i]}%'`;
+        console.log("ff");
+      }
+    }
+    addTagsql += ") ";
+  }
+  console.log("req=?" + req.body.tags);
+  console.log(addTagsql);
+  //콘솔창에 걍 쿼리문 찍어보기
+  console.log(
+    "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
+      category +
+      "'" +
+      addTagsql
+  );
+  try {
+    connection.query(
+      "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
+        category +
+        "'" +
+        addTagsql,
+      (error, rows, fields) => {
+        if (rows != undefined) {
+          lengthss = rows.length;
+          lengthss = lengthss.toString();
+        } else {
+          lengthss = 1;
+        }
+      }
+    );
+    connection.query(
+      "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
+        category +
+        "'" +
+        addTagsql +
+        "LIMIT " +
+        startPage.toString() +
+        ",20",
+      (error, rows, fields) => {
+        if (error) throw error;
+        sqltemp = JSON.stringify(rows);
+        const mylog = sqltemp;
+        addTagsql = "";
+        return res.json({
+          code: 200,
+          total: lengthss,
+          sqltemp,
+        });
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    addTagsql = "";
+    res.send("overflow limit");
+    return app.js;
+  }
 });
