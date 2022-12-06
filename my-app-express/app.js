@@ -9,9 +9,16 @@ app.use(cors());
 app.use(express.json());
 const { verifyToken } = require("./middleware");
 
+process.on("uncaughtException", function (err) {
+  console.error(new Date().toUTCString() + " uncaughtException:", err);
+  console.error(err);
+  console.log(err);
+  process.exit(1);
+});
+//전체 에러 핸들링
+
 // 같은 컴퓨터 로컬 환경에서 포트는 다르지만 호스트가 같은 환경이라 발생한 이슈다
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
-
 // http 컨텐츠 타입 알아보기
 app.get("/", (req, res) => {
   res.send("asdfasdf" + (message = "Hello this is db connecting node server!"));
@@ -45,7 +52,7 @@ let image_numbering;
 app.get("/image/:numbering", (req, res) => {
   image_numbering = req.params.numbering;
   connection.query(
-    "SELECT * FROM iphone.images WHERE numbering =" + image_numbering,
+    `SELECT * FROM iphone.images WHERE numbering =${image_numbering}`,
     (error, rows, fields) => {
       if (error) throw error;
       sqltemp = rows;
@@ -64,41 +71,39 @@ app.get("/image/:numbering", (req, res) => {
 // }
 //// 이하jwt
 
-let jwtToken = "";
-app.post("/login", (req, res) => {
+let uid = "";
+
+function handleEr(res) {
+  return res.send("nodata");
+}
+
+app.post("/login", async (req, res) => {
   let loginInfo = {
     usersID: req?.body?.usersid,
     usersPW: req?.body?.userspw,
   };
+  let checkError;
   console.log(req?.body);
   //이하 db인증
-  let checkingId = {};
-  let containError;
-  let checkError = 0;
-  connection.query(
-    "SELECT*FROM iphone.user_info WHERE user_ID=" +
-      "'" +
-      loginInfo.usersID +
-      "'",
-    (error, rows, fields) => {
-      if (rows === undefined) {
-        console.log("no data matched");
-        checkError++;
-        containError = error;
-      }
-      console.log(rows);
-    }
-  );
-  //이상 db인증
+
   try {
-    if (checkError > 0) {
-      console.log("에러임");
-      return res.send(error);
-    }
+    connection.query(
+      `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
+      (error, rows, fields) => {
+        if (rows.length < 1) {
+          console.log("no data matched");
+          console.log(error);
+          checkError = 1;
+        }
+        if (rows > 1) {
+          uid = rows[0].UID;
+        }
+      }
+    );
     const jwtToken = jwt.sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        data: loginInfo.usersID,
+        data: uid,
       },
       secretObj
     );
@@ -165,7 +170,7 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
   }
   console.log("req=?" + req.body.tags);
   console.log(addTagsql);
-  //콘솔창에 걍 쿼리문 찍어보기
+  //문제 생기면 콘솔창에 걍 쿼리문 찍어보기
   console.log(
     "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
       category +
