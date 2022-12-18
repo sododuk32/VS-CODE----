@@ -71,8 +71,8 @@ app.get("/image/:numbering", (req, res) => {
 // }
 //// 이하jwt
 
-let uid = "";
-
+let userIdnum;
+let yourId;
 function handleEr(res) {
   return res.send("nodata");
 }
@@ -83,47 +83,57 @@ app.post("/login", async (req, res) => {
     usersPW: req?.body?.userspw,
   };
   let checkError;
+  let checkrow;
   console.log(req?.body);
   //이하 db인증
-
   try {
     connection.query(
       `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
+
       (error, rows, fields) => {
         if (rows.length < 1) {
           console.log("no data matched");
-          console.log(error);
-          checkError = 1;
+          error = "nodata";
+          throw error;
         }
-        if (rows > 1) {
-          uid = rows[0].UID;
+        const temp = rows[0].UID;
+        if (temp != undefined) {
+          userIdnum = temp;
+          yourId = loginInfo.usersID;
+          console.log("this is uid[0].UID  " + userIdnum);
         }
+
+        console.log("db실행끝");
       }
     );
     const jwtToken = jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        data: uid,
+        UID: userIdnum.toString(),
+        userId: yourId,
+        exp: Math.floor(Date.now() / 1000) + 60 * 120,
       },
       secretObj
     );
+    console.log(jwtToken);
 
+    let asdfsdaf = jwt.verify(jwtToken, secretObj);
+    console.log("asdfsadf" + asdfsdaf.UID);
     return res.json({
       code: 200,
       message: "토큰발급완료",
       jwtToken,
     });
   } catch (error) {
-    return res.status(500).json({
-      code: 500,
-      message: "서버 에러",
+    console.log("에러문실행");
+    return res.json({
+      code: 200,
+      message: true,
     });
   }
 });
 
 app.get("/verify", verifyToken, (req, res) => {
-  console.log(req?.decoded);
-  res.send("처리완료");
+  console.log("인증절차완료");
 });
 
 let pageNum = 0;
@@ -209,6 +219,37 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
           code: 200,
           total: lengthss,
           sqltemp,
+        });
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    addTagsql = "";
+    res.send("overflow limit");
+    return app.js;
+  }
+});
+
+app.post("/putIncart", (req, res) => {
+  let gettingPid = req.params.pid;
+  let gettingAmount = req.params.amount;
+  let usersIdentity = req.params.usersIdentity;
+  console.log(gettingPid, gettingAmount);
+
+  if (gettingAmount === (undefined || NaN)) {
+    console.log("pageNuma is undefined");
+    return res.render("error", {
+      message: { reconnect: true },
+    });
+  }
+
+  try {
+    connection.query(
+      `SELECT*FROM iphone.user_info WHERE user_ID='${usersIdentity}' AND INSERT INTO user_Cart="pid:${gettingPid},amount:${gettingAmount}"`,
+      (error, rows, fields) => {
+        res.status(200).json({
+          code: 200,
+          message: "complete",
         });
       }
     );
