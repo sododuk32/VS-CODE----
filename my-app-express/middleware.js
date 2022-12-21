@@ -16,6 +16,7 @@ exports.verifyToken = (req, res, next) => {
       code: 200,
       message: "true",
       userid: temp.UID,
+      usersIdentity: temp.userId,
     });
     console.log("200end");
     return next();

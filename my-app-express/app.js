@@ -91,13 +91,13 @@ app.post("/login", async (req, res) => {
       `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
 
       (error, rows, fields) => {
-        if (rows.length < 1) {
-          console.log("no data matched");
-          error = "nodata";
+        console.log("rows" + rows);
+        if (rows === null) {
           throw error;
         }
-        const temp = rows[0].UID;
-        if (temp != undefined) {
+        if (rows[0] != null && undefined) {
+          console.log("not error");
+          const temp = rows[0].UID;
           userIdnum = temp;
           yourId = loginInfo.usersID;
           console.log("this is uid[0].UID  " + userIdnum);
@@ -133,7 +133,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/verify", verifyToken, (req, res) => {
-  console.log("인증절차완료");
+  console.log("인증완료");
 });
 
 let pageNum = 0;
