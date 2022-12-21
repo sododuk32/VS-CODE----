@@ -91,12 +91,16 @@ app.post("/login", async (req, res) => {
       `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
 
       (error, rows, fields) => {
-        console.log("rows" + rows);
-        if (rows === null) {
+        console.log(rows[0]);
+
+        if (rows[0] === undefined) {
+          error = "nodata";
           throw error;
         }
-        if (rows[0] != null && undefined) {
+        if (rows[0].UID) {
           console.log("not error");
+          console.log("rows" + rows[0].UID);
+
           const temp = rows[0].UID;
           userIdnum = temp;
           yourId = loginInfo.usersID;
