@@ -124,14 +124,14 @@ app.post("/login", async (req, res) => {
     console.log("asdfsadf" + asdfsdaf.UID);
     return res.json({
       code: 200,
-      message: "토큰발급완료",
+      message: "false",
       jwtToken,
     });
   } catch (error) {
     console.log("에러문실행");
     return res.json({
       code: 200,
-      message: true,
+      message: "true",
     });
   }
 });
