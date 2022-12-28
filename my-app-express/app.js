@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
   }
   let checkError;
   let checkrow;
-  console.log(req?.body);
+  console.log(req.body);
   //이하 db인증
   try {
     connection.query(
