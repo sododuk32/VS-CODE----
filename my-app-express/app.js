@@ -78,10 +78,17 @@ function handleEr(res) {
 }
 
 app.post("/login", async (req, res) => {
-  let loginInfo = {
-    usersID: req?.body?.usersid,
-    usersPW: req?.body?.userspw,
-  };
+  let loginInfo;
+
+  if (req) {
+    loginInfo ==
+      {
+        usersID: req?.body?.usersid,
+        usersPW: req?.body?.userspw,
+      };
+  } else {
+    return res.send(400);
+  }
   let checkError;
   let checkrow;
   console.log(req?.body);
