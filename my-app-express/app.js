@@ -83,15 +83,15 @@ app.post("/login", async (req, res) => {
   if (req) {
     loginInfo ==
       {
-        usersID: req?.body?.usersid,
-        usersPW: req?.body?.userspw,
+        usersID: req.body.usersid,
+        usersPW: req.body.userspw,
       };
   } else {
     return res.send(400);
   }
   let checkError;
   let checkrow;
-  console.log(req?.body);
+  console.log(req.body);
   //이하 db인증
   try {
     connection.query(
