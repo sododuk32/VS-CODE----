@@ -27,11 +27,10 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log("Now node server loaded");
 });
-mysql.cors();
 const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "34.97.139.192",
-  user: "shop-node",
+  user: "root",
   password: "rhkreodid",
   database: "iphone",
 });
