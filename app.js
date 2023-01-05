@@ -1,17 +1,10 @@
 const express = require("express");
 const app = express();
+const port = 8080;
 const cors = require("cors");
-const http = require("http");
-const https = require("https");
-const fs = require("fs");
-const port = 80;
-const HTTP_PORT = "dont use http";
 let jwt = require("jsonwebtoken");
 let secretObj = "blipsblops";
-const options = {
-  key: fs.readFileSync("./rootca.key"),
-  cert: fs.readFileSync("./rootca.crt"),
-};
+
 app.use(cors());
 app.use(express.json());
 const { verifyToken } = require("./middleware");
@@ -28,14 +21,12 @@ process.on("uncaughtException", function (err) {
 //같은 도메인주소에서 요청이 들어오면 발생하는 이슈를 미들웨어 cors를 express에 실행시켜서 해결
 // http 컨텐츠 타입 알아보기
 app.get("/", (req, res) => {
-  res.json({
-    message: `Server is running on port ${req.secure ? port : HTTP_PORT}`,
-  });
+  res.send("asdfasdf" + (message = "Hello this is db connecting node server!"));
 });
 
-// app.listen(port, () => {
-//   console.log("Now node server loaded");
-// });
+app.listen(port, () => {
+  console.log("Now node server loaded");
+});
 const mysql = require("mysql");
 const connection = mysql.createConnection({
   host: "34.97.139.192",
@@ -46,7 +37,6 @@ const connection = mysql.createConnection({
 });
 
 connection.connect();
-https.createServer(options, app).listen(port);
 
 let data1;
 let sqltemp;
