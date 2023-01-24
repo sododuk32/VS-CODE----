@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8080;
+const port = 3000;
 const cors = require("cors");
 let jwt = require("jsonwebtoken");
 let secretObj = "blipsblops";
@@ -45,7 +45,7 @@ app.get("/sayhelo", (req, res) => {
   res.send("hellllllo");
 });
 
-app.get("/db", (_req, res) => {
+app.get("/db", (req, res) => {
   res.send(data1);
 });
 let image_numbering;
@@ -224,7 +224,6 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
       (error, rows, fields) => {
         if (error) throw error;
         sqltemp = JSON.stringify(rows);
-        const mylog = sqltemp;
         addTagsql = "";
         return res.json({
           code: 200,
@@ -236,9 +235,9 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
   } catch (error) {
     console.log(error);
     addTagsql = "";
-    res.send("overflow limit");
-    return app.js;
-  }
+
+    return res.send("overflow limit");
+  } //원래 returnapp.js 되있는대 내가 쓰고도 왜 저기가 app.js인지 모르겠음.
 });
 
 app.post("/putIncart", (req, res) => {
@@ -269,5 +268,37 @@ app.post("/putIncart", (req, res) => {
     addTagsql = "";
     res.send("overflow limit");
     return app.js;
+  }
+});
+app.post("/registeUser", (req, res) => {
+  let overlaps = false;
+  const users = {
+    inputId: req.params.input_id,
+    inputPw: req.params.input_pw,
+  };
+  try {
+    connection.query(
+      "SELECT * FROM iphone.user_info WHERE user_ID='" + inputId + "'",
+      (error, rows, fields) => {
+        if (rows != null || rows != undefined) {
+          overlaps = true;
+          return res.json({ code: 200, result: "overlap" });
+        } else {
+          try {
+            //string보낼수있게만 하면 완성
+            connection.query(
+              "INSERT INTO user_info values (UID,input_id, input_pw, NULL)", //
+              (error) => {
+                return res.json({ code: 200, result: "complete" });
+              }
+            );
+          } catch (error) {
+            return res.json({ code: 200, result: "error" });
+          }
+        }
+      }
+    );
+  } catch (error) {
+    return res.json({ code: 200, result: "error" });
   }
 });
