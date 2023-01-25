@@ -189,15 +189,7 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
     }
     addTagsql += ") ";
   }
-  console.log("req=?" + req.body.tags);
-  console.log(addTagsql);
-  //문제 생기면 콘솔창에 걍 쿼리문 찍어보기
-  console.log(
-    "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
-      category +
-      "'" +
-      addTagsql
-  );
+
   try {
     connection.query(
       "SELECT * FROM iphone.productinfo_shop WHERE productCategory='" +
@@ -287,8 +279,8 @@ app.post("/registeUser", (req, res) => {
           try {
             //string보낼수있게만 하면 완성
             connection.query(
-              "INSERT INTO user_info values (UID,input_id, input_pw, NULL)", //
-              (error) => {
+              "INSERT INTO user_info values" + "'"+ UID,input_id+"'"+ ",'"+ input_pw +"',"+ NULL,
+                            (error) => {
                 return res.json({ code: 200, result: "complete" });
               }
             );
