@@ -233,21 +233,15 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
 });
 
 app.post("/putIncart", (req, res) => {
-  let gettingPid = req.params.pid;
-  let gettingAmount = req.params.amount;
-  let usersIdentity = req.params.usersIdentity;
+  // 받은json오브젝트 추가.
+  const product = req.params.cart;
   console.log(gettingPid, gettingAmount);
 
-  if (gettingAmount === (undefined || NaN)) {
-    console.log("pageNuma is undefined");
-    return res.render("error", {
-      message: { reconnect: true },
-    });
-  }
+  //에러 핸들링 추가: 같은 아이디를 찾은 후  주문 전송 시간을 비교하는게 좋을듯함.
 
   try {
     connection.query(
-      `SELECT*FROM iphone.user_info WHERE user_ID='${usersIdentity}' AND INSERT INTO user_Cart="pid:${gettingPid},amount:${gettingAmount}"`,
+      `INSERT INTO iphone.orderinfo VALUES ( '${oid}', '${orderSday}', '${uid}', '${product}')`,
       (error, rows, fields) => {
         res.status(200).json({
           code: 200,
@@ -279,8 +273,9 @@ app.post("/registeUser", (req, res) => {
           try {
             //string보낼수있게만 하면 완성
             connection.query(
-              "INSERT INTO user_info values" + "'"+ UID,input_id+"'"+ ",'"+ input_pw +"',"+ NULL,
-                            (error) => {
+              "INSERT INTO user_info values" + "'" + UID,
+              input_id + "'" + ",'" + input_pw + "'," + NULL,
+              (error) => {
                 return res.json({ code: 200, result: "complete" });
               }
             );
