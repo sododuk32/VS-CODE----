@@ -3,11 +3,14 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 let jwt = require("jsonwebtoken");
+const { verifyToken } = require("./middleware");
+const numberGenerator = require("./numberGenerator");
+const dayg = require("./dayG");
+
 let secretObj = "blipsblops";
 
 app.use(cors());
 app.use(express.json());
-const { verifyToken } = require("./middleware");
 
 process.on("uncaughtException", function (err) {
   console.error(new Date().toUTCString() + " uncaughtException:", err);
@@ -28,6 +31,7 @@ app.listen(port, () => {
   console.log("Now node server loaded");
 });
 const mysql = require("mysql");
+const dayG = require("./dayG");
 const connection = mysql.createConnection({
   host: "34.97.139.192",
   user: "root",
@@ -71,14 +75,15 @@ app.get("/image/:numbering", (req, res) => {
 // }
 //// 이하jwt
 
-let userIdnum;
-let yourId;
 function handleEr(res) {
   return res.send("nodata");
 }
 
 app.post("/login", async (req, res) => {
   let loginInfo;
+  let userIdnum;
+  let yourId;
+  let yourUID;
 
   if (req) {
     loginInfo = {
@@ -96,7 +101,8 @@ app.post("/login", async (req, res) => {
       `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
 
       (error, rows, fields) => {
-        console.log("sql출력" + rows[0]);
+        console.log("sql출력");
+        console.log(rows[0]);
 
         if (rows[0] === undefined) {
           error = "nodata";
@@ -114,25 +120,28 @@ app.post("/login", async (req, res) => {
         }
 
         console.log("db실행끝");
+        const jwtToken = jwt.sign(
+          {
+            UID: userIdnum.toString(),
+            userId: yourId,
+            exp: Math.floor(Date.now() / 1000) + 60 * 120,
+          },
+          secretObj
+        );
+        console.log(jwtToken);
+        console.log(userIdnum);
+
+        let asdfsdaf = jwt.verify(jwtToken, secretObj);
+        console.log("asdfsadf" + asdfsdaf.UID);
+        return res.json({
+          code: 200,
+          message: "false",
+          jwtToken,
+          uid: userIdnum,
+          username: yourId,
+        });
       }
     );
-    const jwtToken = jwt.sign(
-      {
-        UID: userIdnum.toString(),
-        userId: yourId,
-        exp: Math.floor(Date.now() / 1000) + 60 * 120,
-      },
-      secretObj
-    );
-    console.log(jwtToken);
-
-    let asdfsdaf = jwt.verify(jwtToken, secretObj);
-    console.log("asdfsadf" + asdfsdaf.UID);
-    return res.json({
-      code: 200,
-      message: "false",
-      jwtToken,
-    });
   } catch (error) {
     console.log("에러문실행");
     console.log(error);
@@ -228,34 +237,120 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
     console.log(error);
     addTagsql = "";
 
-    return res.send("overflow limit");
+    res.send("overflow limit");
+    return app.js;
   } //원래 returnapp.js 되있는대 내가 쓰고도 왜 저기가 app.js인지 모르겠음.
 });
 
 app.post("/putIncart", (req, res) => {
-  // 받은json오브젝트 추가.
-  const product = req.params.cart;
-  console.log(gettingPid, gettingAmount);
+  // req.params= { oid: oids, uids:uid, cart: sendCart, totalPrice: price }
+  let oderInfo = req.body;
+  const oderProduct = JSON.parse(JSON.parse(req.body.cart));
+  if (oderProduct[0].productId === "") {
+    return res.send("nodata");
+  }
+  const temp = oderInfo.uid;
+  oderInfo.uid = Number(temp);
+  const orderNumber = numberGenerator();
+  const Oid = {
+    oid: orderNumber,
+  };
+  let today = new Date();
+  let endDay = new Date(today);
 
-  //에러 핸들링 추가: 같은 아이디를 찾은 후  주문 전송 시간을 비교하는게 좋을듯함.
+  endDay.setDate(today.getDate() + 3);
+  const shippingDays = {
+    orderSday: dayG(today, "yyyy-MM-dd"),
+    oderEnday: dayG(endDay, "yyyy-MM-dd"),
+  };
 
+  const sql1 =
+    "INSERT INTO iphone.order_info " +
+    "(oid, orderSday, daytoEnd, orderCondition,uid) " +
+    "VALUES (?,?,?,?,?);";
+  var values1 = [
+    orderNumber,
+    shippingDays.orderSday,
+    shippingDays.oderEnday,
+    "ready",
+    oderInfo.uid,
+  ];
+  let sql1s = mysql.format(sql1, values1);
   try {
-    connection.query(
-      `INSERT INTO iphone.orderinfo VALUES ( '${oid}', '${orderSday}', '${uid}', '${product}')`,
-      (error, rows, fields) => {
-        res.status(200).json({
-          code: 200,
-          message: "complete",
-        });
-      }
-    );
+    connection.query(sql1s, (error, rows, fields) => {
+      if (error) throw error;
+      addTagsql = "";
+    });
   } catch (error) {
     console.log(error);
     addTagsql = "";
-    res.send("overflow limit");
+    res.send("FAIL");
+    return app.js;
+  }
+  console.log("values1");
+  console.log(values1);
+  const sql2 =
+    "INSERT INTO iphone.order_product " +
+    "(productId,amount,price, oid) " +
+    "VALUES (?,?,?,?);";
+
+  let values2 = [];
+
+  for (let k = 0; k < oderProduct.length; k++) {
+    let temp1 = {
+      productId: oderProduct[k].productId,
+      amount: oderProduct[k].amount,
+      price: oderProduct[k].price,
+      ...Oid,
+    };
+    values2.push(Object.values(temp1));
+  }
+  console.log("values2");
+  console.log(values2);
+  for (let i = 0; i < values2.length; i++) {
+    let sql2s = mysql.format(sql2, values2[i]);
+    try {
+      connection.query(sql2s, (error, rows, fields) => {
+        if (error) throw error;
+        res.send("saved");
+        return app.js;
+      });
+    } catch (error) {
+      console.log(error);
+      addTagsql = "";
+      res.send("FAIL");
+      return app.js;
+    }
+  }
+});
+
+app.post("/getOderinfo", (req, res) => {
+  console.log("oid조회");
+  const uid = req.body.uid;
+  let result2;
+  let result3;
+
+  try {
+    let sql =
+      "SELECT *FROM iphone.order_info JOIN iphone.order_product ON iphone.order_info.oid = iphone.order_product.oid WHERE iphone.order_info.uid = ? AND ( iphone.order_info.orderCondition = 'ready' OR iphone.order_info.orderCondition = 'moveon')";
+    let sqls1 = mysql.format(sql, uid);
+    connection.query(sqls1, (error, rows, fields) => {
+      console.log(rows);
+
+      res.json({
+        code: 200,
+        yourData: rows,
+      });
+      return app.js;
+    });
+  } catch (error) {
+    console.log(error);
+    addTagsql = "";
+    res.send("FAIL");
     return app.js;
   }
 });
+
 app.post("/registeUser", (req, res) => {
   let overlaps = false;
   const users = {
@@ -268,7 +363,8 @@ app.post("/registeUser", (req, res) => {
       (error, rows, fields) => {
         if (rows != null || rows != undefined) {
           overlaps = true;
-          return res.json({ code: 200, result: "overlap" });
+          res.json({ code: 200, result: "overlap" });
+          return app.js;
         } else {
           try {
             //string보낼수있게만 하면 완성
@@ -276,16 +372,19 @@ app.post("/registeUser", (req, res) => {
               "INSERT INTO user_info values" + "'" + UID,
               input_id + "'" + ",'" + input_pw + "'," + NULL,
               (error) => {
-                return res.json({ code: 200, result: "complete" });
+                res.json({ code: 200, result: "complete" });
+                return app.js;
               }
             );
           } catch (error) {
-            return res.json({ code: 200, result: "error" });
+            res.json({ code: 200, result: "error" });
+            return app.js;
           }
         }
       }
     );
   } catch (error) {
-    return res.json({ code: 200, result: "error" });
+    res.json({ code: 200, result: "error" });
+    return app.js;
   }
 });
