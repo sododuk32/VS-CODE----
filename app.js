@@ -145,10 +145,11 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.log("에러문실행");
     console.log(error);
-    return res.json({
+    res.json({
       code: 200,
       message: "true",
     });
+    return app.js;
   }
 });
 
@@ -171,9 +172,10 @@ app.post("/productInfo/:category/:startNum", (req, res) => {
   if (pageNum === (undefined || NaN)) {
     pageNum = 1;
     console.log("pageNuma is undefined");
-    return res.render("error", {
+    res.render("error", {
       message: { reconnect: true },
     });
+    return app.js;
   }
   pageNum = Number(pageNum);
   let lengthss = 0;
@@ -279,7 +281,6 @@ app.post("/putIncart", (req, res) => {
   try {
     connection.query(sql1s, (error, rows, fields) => {
       if (error) throw error;
-      addTagsql = "";
     });
   } catch (error) {
     console.log(error);
