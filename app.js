@@ -389,3 +389,132 @@ app.post("/registeUser", (req, res) => {
     return app.js;
   }
 });
+
+async function getFindDepth(sqls2) {
+  return new Promise((resolve, reject) => {
+    connection.query(sqls2, (error, rows, fields) => {
+      if (error) {
+        console.log("this is row" + rows);
+        throw error;
+      }
+
+      if (rows.length === 0 || rows === null || rows === undefined) {
+        console.log("null임");
+        console.log(rows);
+
+        resolve(0);
+      } else if (rows != undefined && rows.length > 0 && rows != null) {
+        console.log("rows.length != undefined && rows.length > 0");
+        console.log(rows);
+        resolve(rows[0].place + 1);
+      }
+      if (reject) {
+        resolve("error");
+      }
+    });
+  });
+}
+
+async function getFindPlace(sqls1) {
+  return new Promise((resolve, reject) => {
+    connection.query(sqls1, (error, rows, fields) => {
+      if (error) {
+        console.log("this is row" + rows);
+        throw error;
+      }
+
+      if (rows.length === 0 || rows === null || rows === undefined) {
+        console.log + "place null임";
+        console.log(rows);
+
+        resolve(0);
+      } else if (rows != undefined && rows.length > 0 && rows != null) {
+        console.log + "place length>0임";
+        console.log(rows);
+
+        resolve(rows[0].depth + 1);
+      }
+      if (reject) {
+        resolve("error");
+      }
+    });
+  });
+}
+
+/*
+ * 게시글번호 pid:int
+ * 유저아이디 uid:int
+ * 댓글내용 comment:string
+ * 셀렉트 한마디 line:string
+ * 게시글 평점 rating:int
+ * 댓글의 깊이 depth:int   db에 조회 후 결정
+ * 댓글등록 순서 place:int  db에 조회 후 결정
+ * 작성시간 timeTowrite:string 여기서 생성
+ * 유저이름 userName:string
+ */
+app.post("/inputComment", async (req, res) => {
+  console.log(req.body);
+  const CommentInfo = req.body;
+
+  for (let key in CommentInfo) {
+    if (CommentInfo[key] === undefined || CommentInfo[key] === null) {
+      throw error;
+    }
+  }
+
+  try {
+    const sql1 = `SELECT depth FROM iphone.comment_table WHERE pid=? ORDER BY depth DESC`;
+    // 깊이와 순서 조회
+    let values = [CommentInfo.pid];
+    let sqls1 = mysql.format(sql1, values);
+
+    const sql2 = `SELECT place FROM iphone.comment_table WHERE pid=? ORDER BY place DESC`;
+    let sqls2 = mysql.format(sql2, values);
+
+    const pfuntion = Promise.all([
+      getFindDepth(sqls1),
+      getFindPlace(sqls2),
+    ]).then((res) => {
+      const findDepth = res[0];
+      const findPlace = res[1];
+
+      let date1 = new Date();
+      date1 = dayG(date1, "yyyy-MM-dd");
+      console.log(date1);
+      let ComentObj = [
+        CommentInfo.pid,
+        CommentInfo.uid,
+        CommentInfo.comment,
+        CommentInfo.line,
+        CommentInfo.rating,
+        findDepth,
+        findPlace,
+        date1,
+        CommentInfo.userName,
+      ];
+
+      const sql3 =
+        "INSERT INTO iphone.comment_table " +
+        "(pid,uid,comment,line,rating,depth,place,timeTowrite,userName) " +
+        "VALUES (?,?,?,?,?,?,?,?,?);";
+      let sqls3 = mysql.format(sql3, ComentObj);
+
+      connection.query(sqls3, (error, rows, fields) => {
+        if (error) throw error;
+
+        console.log(rows);
+        res.json({
+          code: 200,
+          message: "complete",
+        });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    res.send.json({
+      code: 400,
+      message: "fail",
+    });
+    return app.js;
+  }
+});
