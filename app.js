@@ -478,6 +478,7 @@ app.post("/inputComment", async (req, res) => {
       const findDepth = res[0];
       const findPlace = res[1];
 
+      if (findDepth === "error" || findPlace === "error") throw error;
       let date1 = new Date();
       date1 = dayG(date1, "yyyy-MM-dd");
       console.log(date1);
