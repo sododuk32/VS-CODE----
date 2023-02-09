@@ -5,6 +5,7 @@ const cors = require("cors");
 let jwt = require("jsonwebtoken");
 const { verifyToken } = require("./middleware");
 const numberGenerator = require("./numberGenerator");
+const dbinfo = require("./dbSetting");
 const dayg = require("./dayG");
 
 let secretObj = "blipsblops";
@@ -32,13 +33,7 @@ app.listen(port, () => {
 });
 const mysql = require("mysql");
 const dayG = require("./dayG");
-const connection = mysql.createConnection({
-  host: "34.97.139.192",
-  user: "root",
-  password: "rhkreodid",
-  database: "iphone",
-  port: 3306,
-});
+const connection = mysql.createConnection(dbinfo);
 
 connection.connect();
 
