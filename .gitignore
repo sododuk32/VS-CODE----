@@ -1,2 +1,4 @@
 node_modules/
 dbSetting.js
+cert.key
+rootca.key
