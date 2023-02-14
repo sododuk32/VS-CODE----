@@ -514,3 +514,48 @@ app.post("/inputComment", async (req, res) => {
     return app.js;
   }
 });
+
+// async function convertion(fromObj) {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       fetch(
+//         `https://api.exchangerate.host/convert?from=${fromObj.fromCurrency}&to=${fromObj.toCurrency}`,
+//         {
+//           method: "GET",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       ).then((res) => resolve(res));
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   });
+// }
+
+app.get(`/convert/:from/:to`, async (req, res) => {
+  let result;
+  const fromObj = {
+    fromCurrency: req.params.from,
+    toCurrency: req.params.to,
+  };
+  const request = require("request");
+  var urls = `https://api.exchangerate.host/convert?from=${fromObj.fromCurrency}&to=${fromObj.toCurrency}`;
+  try {
+    request.get(urls, (error, response) => {
+      res.send(response.body);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+// var requestURL = 'https://api.exchangerate.host/convert?from=USD&to=EUR';
+// var request = new XMLHttpRequest();
+// request.open('GET', requestURL);
+// request.responseType = 'json';
+// request.send();
+
+// request.onload = function() {
+//   var response = request.response;
+//   console.log(response);
+// }
