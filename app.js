@@ -388,24 +388,26 @@ app.post("/registeUser", (req, res) => {
 async function getFindDepth(sqls2) {
   return new Promise((resolve, reject) => {
     connection.query(sqls2, (error, rows, fields) => {
+      console.log("depth:");
+
+      console.log(rows[0]);
+
       if (error) {
-        console.log("this is row" + rows);
-        throw error;
-      }
-
-      if (rows.length === 0 || rows === null || rows === undefined) {
-        console.log("null임");
-        console.log(rows);
-
-        resolve(0);
-      } else if (rows != undefined && rows.length > 0 && rows != null) {
-        console.log("rows.length != undefined && rows.length > 0");
-        console.log(rows);
-        resolve(rows[0].place + 1);
-      }
-      if (reject) {
         resolve("error");
       }
+
+      if (typeof rows[0] === "undefined" || rows[0] === null) {
+        console.log(" depth 0임");
+        return resolve(0);
+      }
+      if (Number(rows[0].depth) === 0) {
+        console.log(" depth 1임");
+        return resolve(0);
+      }
+      // else {
+      //   console.log(" depth +1임");
+      //   return resolve(rows[0].depth + 1);
+      // }
     });
   });
 }
@@ -413,24 +415,23 @@ async function getFindDepth(sqls2) {
 async function getFindPlace(sqls1) {
   return new Promise((resolve, reject) => {
     connection.query(sqls1, (error, rows, fields) => {
+      console.log("places:");
+      console.log(rows[0]);
       if (error) {
-        console.log("this is row" + rows);
-        throw error;
+        return resolve("error");
       }
-
-      if (rows.length === 0 || rows === null || rows === undefined) {
-        console.log + "place null임";
-        console.log(rows);
-
-        resolve(0);
-      } else if (rows != undefined && rows.length > 0 && rows != null) {
-        console.log + "place length>0임";
-        console.log(rows);
-
-        resolve(rows[0].depth + 1);
+      if (rows[0] === undefined || rows[0] === null) {
+        console.log("알수없어서 place 0임");
+        return resolve(0);
       }
-      if (reject) {
-        resolve("error");
+      if (rows[0].place === 0) {
+        console.log("place 1임");
+
+        return resolve(1);
+      } else {
+        console.log(" place +1임");
+
+        return resolve(rows[0].place + 1);
       }
     });
   });
@@ -470,13 +471,16 @@ app.post("/inputComment", async (req, res) => {
       getFindDepth(sqls1),
       getFindPlace(sqls2),
     ]).then((res) => {
-      const findDepth = res[0];
-      const findPlace = res[1];
+      let findDepth = res[0];
+      let findPlace = res[1];
+      if (res[0] === "error" || res[1] === "error") {
+        throw error;
+      }
+      console.log("res");
+      console.log(res);
 
-      if (findDepth === "error" || findPlace === "error") throw error;
       let date1 = new Date();
       date1 = dayG(date1, "yyyy-MM-dd");
-      console.log(date1);
       let ComentObj = [
         CommentInfo.pid,
         CommentInfo.uid,
@@ -493,16 +497,13 @@ app.post("/inputComment", async (req, res) => {
         "INSERT INTO iphone.comment_table " +
         "(pid,uid,comment,line,rating,depth,place,timeTowrite,userName) " +
         "VALUES (?,?,?,?,?,?,?,?,?);";
+      console.log("ComentObj");
+
+      console.log(ComentObj);
       let sqls3 = mysql.format(sql3, ComentObj);
 
       connection.query(sqls3, (error, rows, fields) => {
         if (error) throw error;
-
-        console.log(rows);
-        res.json({
-          code: 200,
-          message: "complete",
-        });
       });
     });
   } catch (error) {
@@ -513,25 +514,19 @@ app.post("/inputComment", async (req, res) => {
     });
     return app.js;
   }
+  res.send({ code: 200, result: "complete" });
 });
 
-// async function convertion(fromObj) {
-//   return new Promise((resolve, reject) => {
-//     try {
-//       fetch(
-//         `https://api.exchangerate.host/convert?from=${fromObj.fromCurrency}&to=${fromObj.toCurrency}`,
-//         {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       ).then((res) => resolve(res));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-// }
+app.get(`/product/review/:productId`, (req, res) => {
+  const searchId = req.params.productId;
+  const sql1 = `SELECT*FROM iphone.comment_table WHERE pid = ? ORDER BY timeTowrite`;
+  const values = [searchId];
+  let sqls1 = mysql.format(sql1, values);
+
+  connection.query(sqls1, (error, rows, fields) => {
+    res.json(rows);
+  });
+});
 
 app.get(`/convert/:from/:to`, async (req, res) => {
   let result;
@@ -540,7 +535,7 @@ app.get(`/convert/:from/:to`, async (req, res) => {
     toCurrency: req.params.to,
   };
   const request = require("request");
-  var urls = `https://api.exchangerate.host/convert?from=${fromObj.fromCurrency}&to=${fromObj.toCurrency}`;
+  const urls = `https://api.exchangerate.host/convert?from=${fromObj.fromCurrency}&to=${fromObj.toCurrency}`;
   try {
     request.get(urls, (error, response) => {
       res.send(response.body);
@@ -549,13 +544,3 @@ app.get(`/convert/:from/:to`, async (req, res) => {
     console.log(error);
   }
 });
-// var requestURL = 'https://api.exchangerate.host/convert?from=USD&to=EUR';
-// var request = new XMLHttpRequest();
-// request.open('GET', requestURL);
-// request.responseType = 'json';
-// request.send();
-
-// request.onload = function() {
-//   var response = request.response;
-//   console.log(response);
-// }
