@@ -88,9 +88,7 @@ app.post("/login", async (req, res) => {
   } else {
     return res.send(400);
   }
-  console.log("받은req▼");
-  console.log(loginInfo);
-  //이하 db인증
+
   try {
     connection.query(
       `SELECT*FROM iphone.user_info WHERE user_ID='${loginInfo.usersID}' AND user_PW='${loginInfo.usersPW}'`,
@@ -466,7 +464,8 @@ app.post("/inputComment", async (req, res) => {
 
     const sql2 = `SELECT place FROM iphone.comment_table WHERE pid=? ORDER BY place DESC`;
     let sqls2 = mysql.format(sql2, values);
-
+    console.log("res");
+    console.log(CommentInfo);
     const pfuntion = Promise.all([
       getFindDepth(sqls1),
       getFindPlace(sqls2),
@@ -476,8 +475,6 @@ app.post("/inputComment", async (req, res) => {
       if (res[0] === "error" || res[1] === "error") {
         throw error;
       }
-      console.log("res");
-      console.log(res);
 
       let date1 = new Date();
       date1 = dayG(date1, "yyyy-MM-dd");
@@ -497,9 +494,7 @@ app.post("/inputComment", async (req, res) => {
         "INSERT INTO iphone.comment_table " +
         "(pid,uid,comment,line,rating,depth,place,timeTowrite,userName) " +
         "VALUES (?,?,?,?,?,?,?,?,?);";
-      console.log("ComentObj");
 
-      console.log(ComentObj);
       let sqls3 = mysql.format(sql3, ComentObj);
 
       connection.query(sqls3, (error, rows, fields) => {
@@ -508,7 +503,7 @@ app.post("/inputComment", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.send.json({
+    res.json({
       code: 400,
       message: "fail",
     });
@@ -522,9 +517,16 @@ app.get(`/product/review/:productId`, (req, res) => {
   const sql1 = `SELECT*FROM iphone.comment_table WHERE pid = ? ORDER BY timeTowrite`;
   const values = [searchId];
   let sqls1 = mysql.format(sql1, values);
-
+  console.log("start review comment ");
   connection.query(sqls1, (error, rows, fields) => {
-    res.json(rows);
+    if (!rows.length) {
+      console.log("nodata" + rows);
+      res.json("nodata");
+    } else {
+      res.json(rows);
+      console.log(rows);
+      return app.js;
+    }
   });
 });
 
